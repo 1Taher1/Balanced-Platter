@@ -103,8 +103,8 @@
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/framer-motion@11.11.17/dist/framer-motion.js"></script>
-<meta name="ext-resource-dependency" content="assets/hero-flour.png" data-resource-id="heroFlour" />
-<meta name="ext-resource-dependency" content="assets/lifestyle-family.png" data-resource-id="lifestyleFamily" />
+<meta name="ext-resource-dependency" content="assets/hero-flour.webp" data-resource-id="heroFlour" />
+<meta name="ext-resource-dependency" content="assets/lifestyle-family.webp" data-resource-id="lifestyleFamily" />
 </head>
 <body>
   <template id="__bundler_thumbnail" data-bg-color="#11261E">
@@ -125,7 +125,7 @@
   </template>
   <a href="#main" class="skip-link">Skip to content</a>
   <div id="preloader">
-    <div class="pl-mark"><img src="assets/logo.png" alt="Balanced Platter"/></div>
+    <div class="pl-mark"><img src="assets/logo.webp" alt="Balanced Platter"/></div>
     <div class="pl-track"><div class="pl-fill"></div></div>
     <div class="pl-word">Balanced Platter</div>
   </div>
@@ -202,7 +202,7 @@ function Navbar(){
             transition={{duration:.4, ease:[.22,.61,.36,1]}}
             style={{borderRadius:'50%', overflow:'hidden', background:'var(--forest-700)', boxShadow:'0 6px 18px -8px rgba(17,38,30,0.6), inset 0 0 0 1px rgba(201,168,91,0.4)'}}
           >
-            <img src="assets/logo.png" alt="" style={{width:'100%',height:'100%',objectFit:'cover',transform:'scale(1.05)'}}/>
+            <img src="assets/logo.webp" alt="" style={{width:'100%',height:'100%',objectFit:'cover',transform:'scale(1.05)'}}/>
           </motion.div>
           <div style={{display:'flex',flexDirection:'column',lineHeight:1}}>
             <span className="serif" style={{fontSize: scrolled ? 19 : 22, color:'var(--forest-700)', fontWeight:500, transition:'font-size .4s'}}>Balanced Platter</span>
@@ -349,7 +349,7 @@ function Hero(){
       {/* atmospheric stone-ground flour backdrop */}
       <motion.div aria-hidden="true" style={{position:'absolute', inset:0, zIndex:0, pointerEvents:'none', y:flourY}}>
         <div style={{position:'absolute', left:0, right:0, bottom:0, height:'58%',
-          backgroundImage:'url(' + RES('heroFlour','assets/hero-flour.png') + ')', backgroundSize:'cover', backgroundPosition:'center 70%',
+          backgroundImage:'url(' + RES('heroFlour','assets/hero-flour.webp') + ')', backgroundSize:'cover', backgroundPosition:'center 70%',
           opacity:0.55,
           WebkitMaskImage:'linear-gradient(to top, #000 0%, #000 30%, transparent 100%)',
           maskImage:'linear-gradient(to top, #000 0%, #000 30%, transparent 100%)'}}/>
@@ -494,7 +494,7 @@ function Hero(){
           {/* product pack */}
           <motion.div style={{position:'relative', zIndex:2, y: packY, rotate: packRot}}>
             <motion.img
-              src="assets/product-pack.png"
+              src="assets/product-pack.webp"
               alt="Balanced Platter Sugar Control Atta — 1 KG pack"
               initial={{opacity:0, y:60, scale:.94}}
               animate={{
@@ -972,9 +972,9 @@ const GAP_STEPS = [
 ];
 
 const GAP_COMPARE = [
-  {img:'assets/regular-roti.png', tag:'The default', t:'Everyday Flour', d:'Familiar and convenient — but never designed with blood sugar in mind.', tone:'plain'},
-  {img:'assets/gap-alternatives.png', tag:'The detour', t:'Specialty Alternatives', d:'Well-intentioned, yet often hard to cook, enjoy and sustain.', tone:'plain'},
-  {img:'assets/bp-roti-transparent.png', tag:'The answer', t:'Balanced Platter', d:'The missing middle — familiar, usable and nutritionally considered.', tone:'answer'},
+  {img:'assets/regular-roti.webp', tag:'The default', t:'Everyday Flour', d:'Familiar and convenient — but never designed with blood sugar in mind.', tone:'plain'},
+  {img:'assets/gap-alternatives.webp', tag:'The detour', t:'Specialty Alternatives', d:'Well-intentioned, yet often hard to cook, enjoy and sustain.', tone:'plain'},
+  {img:'assets/bp-roti-transparent.webp', tag:'The answer', t:'Balanced Platter', d:'The missing middle — familiar, usable and nutritionally considered.', tone:'answer'},
 ];
 
 function TheGap(){
@@ -1095,7 +1095,7 @@ function GapVisual({step}){
         <motion.div key="s0" initial={{opacity:0, scale:.85}} animate={{opacity:1, scale:1}} exit={{opacity:0, scale:.9}}
           transition={{duration:.7, ease:[.22,.61,.36,1]}}
           style={{position:'absolute', display:'grid', placeItems:'center'}}>
-          <motion.img src="assets/regular-roti.png" alt="A stack of everyday wheat rotis with a sack of grain" loading="lazy"
+          <motion.img src="assets/regular-roti.webp" alt="A stack of everyday wheat rotis with a sack of grain" loading="lazy"
             animate={{y:[0,-12,0], rotate:[0,-1.2,0]}}
             transition={{duration:7, repeat:Infinity, ease:'easeInOut'}}
             style={{width:400, height:400, objectFit:'contain',
@@ -1110,7 +1110,7 @@ function GapVisual({step}){
       {step===1 && (
         <motion.div key="s1" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
           transition={{duration:.6}} style={{position:'absolute', inset:0, display:'grid', placeItems:'center'}}>
-          <motion.img src="assets/gap-alternatives.png" alt="An assortment of specialty flours and grains"
+          <motion.img src="assets/gap-alternatives.webp" alt="An assortment of specialty flours and grains"
             initial={{opacity:0, scale:.9, y:18}} animate={{opacity:1, scale:1, y:[0,-10,0]}}
             transition={{opacity:{duration:.7}, scale:{duration:.7, ease:[.22,.61,.36,1]}, y:{duration:7, repeat:Infinity, ease:'easeInOut'}}}
             style={{width:440, height:440, objectFit:'contain', filter:'drop-shadow(0 34px 46px rgba(82,67,30,0.32))'}}/>
@@ -1135,7 +1135,7 @@ function GapVisual({step}){
           <motion.div initial={{opacity:0, scale:.8}} animate={{opacity:1, scale:1}} transition={{duration:.9}}
             style={{position:'absolute', width:430, height:430, borderRadius:'50%',
               background:'radial-gradient(closest-side, rgba(201,168,91,0.30), transparent 70%)'}}/>
-          <motion.img src="assets/gap-tear.png" alt="Hands tearing a soft roti to reveal its pliable interior"
+          <motion.img src="assets/gap-tear.webp" alt="Hands tearing a soft roti to reveal its pliable interior"
             initial={{opacity:0, scale:.9}} animate={{opacity:1, scale:1, y:[0,-9,0]}}
             transition={{opacity:{duration:.7}, scale:{duration:.7, ease:[.22,.61,.36,1]}, y:{duration:6.5, repeat:Infinity, ease:'easeInOut'}}}
             style={{position:'relative', zIndex:2, width:450, height:450, objectFit:'contain', filter:'drop-shadow(0 34px 46px rgba(82,67,30,0.34))'}}/>
@@ -1169,13 +1169,13 @@ function GapVisual({step}){
             style={{position:'relative', zIndex:2, width:460, height:460, display:'grid', placeItems:'center',
               filter:'drop-shadow(0 46px 50px rgba(17,38,30,0.45))'}}>
             {/* before — the everyday roti dissolves */}
-            <motion.img src="assets/regular-roti.png" alt=""
+            <motion.img src="assets/regular-roti.webp" alt=""
               initial={{opacity:0, scale:.92}}
               animate={{opacity:[0,1,1,0], scale:[.92,1,1,1.14]}}
               transition={{duration:1.9, times:[0,0.16,0.46,0.82], ease:'easeInOut'}}
               style={{position:'absolute', width:420, height:420, objectFit:'contain'}}/>
             {/* after — the Balanced Platter roti resolves */}
-            <motion.img src="assets/bp-roti-transparent.png" alt="Balanced Platter Sugar Control Atta roti"
+            <motion.img src="assets/bp-roti-transparent.webp" alt="Balanced Platter Sugar Control Atta roti"
               initial={{opacity:0, scale:.86}}
               animate={{opacity:[0,0,1], scale:[.86,.93,1]}}
               transition={{duration:1.7, delay:.8, times:[0,0.22,1], ease:[.22,.61,.36,1]}}
@@ -1284,7 +1284,7 @@ function ProductReveal(){
             animate={reduced ? {} : {y:[0,-12,0]}} transition={{duration:7, repeat:Infinity, ease:'easeInOut'}}
             whileHover={{scale:1.025}}
             style={{position:'relative', zIndex:3, display:'grid', placeItems:'center', willChange:'transform'}}>
-            <motion.img src="assets/product-pack.png" alt="Balanced Platter Sugar Control Atta"
+            <motion.img src="assets/product-pack.webp" alt="Balanced Platter Sugar Control Atta"
               initial={{opacity:0, y:60, scale:.92}} animate={inView?{opacity:1, y:0, scale:1}:{}}
               transition={{duration:1.2, delay:.2, ease:[.22,.61,.36,1]}}
               style={{height:500, y:packY, x:tiltX, rotateX:rotX, rotateY:rotY, transformPerspective:1200,
@@ -1714,7 +1714,7 @@ function HowItWorks(){
             style={{position:'relative', marginBottom:40, borderRadius:20, overflow:'hidden',
               border:'1px solid rgba(156,122,44,0.2)', boxShadow:'0 30px 60px -42px rgba(82,67,30,0.45)',
               background:'linear-gradient(180deg, #FBF6EC, #F3EAD3)'}}>
-            <img src="assets/ingredients-roti.png" alt="A Balanced Platter roti surrounded by almonds, wheat, peanuts and oats" loading="lazy"
+            <img src="assets/ingredients-roti.webp" alt="A Balanced Platter roti surrounded by almonds, wheat, peanuts and oats" loading="lazy"
               style={{display:'block', width:'100%', height:'auto', mixBlendMode:'multiply'}}/>
             <span className="mono" style={{position:'absolute', left:20, bottom:16, fontSize:10.5, letterSpacing:'0.16em',
               textTransform:'uppercase', color:'var(--gold-600)'}}>One roti · many considered ingredients</span>
@@ -1865,8 +1865,8 @@ function Benefits(){
         <motion.div
           initial={{opacity:0, y:24}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:1, delay:.2, ease:[.22,.61,.36,1]}}
           style={{display:'grid', gridTemplateColumns:'2fr 1fr', gap:24, marginBottom:24}}>
-          <Photo src="assets/roti-plate-dal.png" alt="Balanced Platter rotis served with a bowl of dal" caption="The everyday balanced plate" h={320} pos="center"/>
-          <Photo src="assets/roti-pan.png" alt="A Balanced Platter roti cooking on a cast-iron tawa" caption="Made in real kitchens" h={320} pos="center"/>
+          <Photo src="assets/roti-plate-dal.webp" alt="Balanced Platter rotis served with a bowl of dal" caption="The everyday balanced plate" h={320} pos="center"/>
+          <Photo src="assets/roti-pan.webp" alt="A Balanced Platter roti cooking on a cast-iron tawa" caption="Made in real kitchens" h={320} pos="center"/>
         </motion.div>
 
         {/* benefit grid */}
@@ -1949,7 +1949,7 @@ function EmotionalTransition(){
       <motion.div aria-hidden="true"
         initial={{scale:1.2}} animate={inView?{scale:1}:{}} transition={{duration:9, ease:'easeOut'}}
         style={{position:'absolute', inset:0, zIndex:0,
-          backgroundImage:'url(' + RES('lifestyleFamily','assets/lifestyle-family.png') + ')', backgroundSize:'cover', backgroundPosition:'center 38%'}}/>
+          backgroundImage:'url(' + RES('lifestyleFamily','assets/lifestyle-family.webp') + ')', backgroundSize:'cover', backgroundPosition:'center 38%'}}/>
       <div aria-hidden="true" style={{position:'absolute', inset:0, zIndex:0,
         background:'linear-gradient(180deg, rgba(17,38,30,0.80) 0%, rgba(14,32,25,0.86) 50%, rgba(14,32,25,0.95) 100%)'}}/>
       {/* soft gold breath */}
@@ -2063,7 +2063,7 @@ function FounderStory(){
         <motion.div
           initial={{opacity:0, y:30}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:1, delay:.35, ease:[.22,.61,.36,1]}}
           style={{position:'relative', borderRadius:22, overflow:'hidden', boxShadow:'0 40px 80px -44px rgba(17,38,30,0.55)'}}>
-          <img src="assets/lifestyle-family.png" alt="A family sharing a home-cooked meal" loading="lazy"
+          <img src="assets/lifestyle-family.webp" alt="A family sharing a home-cooked meal" loading="lazy"
             style={{display:'block', width:'100%', height:300, objectFit:'cover', objectPosition:'center 38%'}}/>
           <div style={{position:'absolute', inset:0,
             background:'linear-gradient(90deg, rgba(14,32,25,0.92) 0%, rgba(14,32,25,0.6) 46%, rgba(14,32,25,0.12) 100%)'}}/>
@@ -2492,7 +2492,7 @@ function FinalCTA(){
               style={{position:'absolute', bottom:70, width:360, height:100, borderRadius:'50%', border:'1px solid rgba(201,168,91,0.3)',
                 background:'radial-gradient(closest-side, rgba(201,168,91,0.12), transparent 70%)'}}/>
             <motion.div style={{position:'relative', zIndex:2, y:packY}}>
-              <motion.img src="assets/product-pack.png" alt="Balanced Platter Sugar Control Atta — request a sample" loading="lazy"
+              <motion.img src="assets/product-pack.webp" alt="Balanced Platter Sugar Control Atta — request a sample" loading="lazy"
                 initial={{opacity:0, y:50, scale:.92}} animate={inView?{opacity:1, y: reduced ? 0 : [0,-12,0], scale:1}:{}}
                 transition={{opacity:{duration:1.2, delay:.2}, scale:{duration:1.2, delay:.2, ease:[.22,.61,.36,1]}, y: reduced ? {duration:1.2, delay:.2} : {duration:6, repeat:Infinity, ease:'easeInOut', delay:1.2}}}
                 style={{display:'block', height:500, x:tiltX, rotateX:rotX, rotateY:rotY, transformPerspective:1200,
@@ -2515,7 +2515,7 @@ function FinalCTA(){
           <motion.div initial={{opacity:0}} whileInView={{opacity:1}} viewport={{once:true}} transition={{duration:1.2, delay:1}}
             style={{display:'flex', alignItems:'center', justifyContent:'center', gap:14, marginTop:48}}>
             <span style={{width:30, height:30, borderRadius:'50%', overflow:'hidden', background:'var(--forest-700)', boxShadow:'inset 0 0 0 1px rgba(201,168,91,0.5)'}}>
-              <img src="assets/logo.png" alt="" style={{width:'100%', height:'100%', objectFit:'cover', transform:'scale(1.05)'}}/>
+              <img src="assets/logo.webp" alt="" style={{width:'100%', height:'100%', objectFit:'cover', transform:'scale(1.05)'}}/>
             </span>
             <span style={{fontSize:12, letterSpacing:'0.28em', textTransform:'uppercase', color:'rgba(246,239,227,0.55)'}}>Balanced Platter · Est. 2026</span>
           </motion.div>
