@@ -1,0 +1,2623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1280" />
+<title>Balanced Platter — A Smarter Flour for Blood Sugar-Conscious Living</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --forest-900:#11261E;
+    --forest-700:#1B3A2F;
+    --forest-600:#23493B;
+    --forest-500:#2E5A48;
+    --gold-600:#9C7A2C;
+    --gold-500:#B69140;
+    --gold-400:#C9A85B;
+    --cream:#F6EFE3;
+    --cream-soft:#FBF6EC;
+    --cream-deep:#EFE6D2;
+    --beige:#E8DEC8;
+    --beige-soft:#F0E9D6;
+    --charcoal:#1F1D18;
+    --ink-60:rgba(31,29,24,0.62);
+    --ink-40:rgba(31,29,24,0.54);
+    --hair:rgba(31,29,24,0.10);
+    --gold-glass:rgba(182,145,64,0.18);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--cream);color:var(--charcoal);font-family:'Hanken Grotesk',system-ui,sans-serif;scroll-behavior:smooth}
+  body{min-width:1280px;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11"}
+  .serif{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:-0.01em}
+  .mono{font-family:'JetBrains Mono','SFMono-Regular',ui-monospace,monospace}
+  ::selection{background:var(--forest-700);color:var(--cream)}
+  img{display:block;max-width:100%}
+  button{font-family:inherit}
+  a{color:inherit;text-decoration:none}
+  /* Atmospheric base */
+  .atmosphere{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(1100px 700px at 12% 18%, rgba(182,145,64,0.14), transparent 60%),
+      radial-gradient(900px 700px at 92% 8%, rgba(35,73,59,0.10), transparent 60%),
+      radial-gradient(1200px 900px at 60% 110%, rgba(232,222,200,0.55), transparent 65%),
+      linear-gradient(180deg, #FBF6EC 0%, #F6EFE3 45%, #F1E8D2 100%);
+  }
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.11 0 0 0 0 0.09 0 0 0 0.08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* ——— Phase 5 polish: a11y, scroll, microinteractions ——— */
+  :root{ --ease:cubic-bezier(.22,.61,.36,1); }
+  html{ scroll-padding-top:96px; }
+  a, button{ -webkit-tap-highlight-color:transparent; }
+  :focus{ outline:none; }
+  :focus-visible{ outline:2px solid var(--gold-500); outline-offset:3px; border-radius:6px; }
+  .cta-press{ transition:transform .28s var(--ease), box-shadow .35s var(--ease), background .3s ease; will-change:transform; }
+  .cta-press:active{ transform:translateY(1px) scale(.985) !important; }
+  .btn-arrow{ transition:transform .3s var(--ease); }
+  .cta-group:hover .btn-arrow{ transform:translateX(4px); }
+  .skip-link{ position:fixed; top:-60px; left:16px; z-index:1000; background:var(--forest-700); color:var(--cream-soft);
+    padding:10px 18px; border-radius:0 0 12px 12px; font-size:13px; letter-spacing:.04em; transition:top .3s var(--ease); }
+  .skip-link:focus{ top:0; }
+
+  /* preloader */
+  #preloader{ position:fixed; inset:0; z-index:999; display:grid; place-items:center;
+    background:linear-gradient(180deg,#FBF6EC,#F1E8D2); transition:opacity .8s var(--ease), visibility .8s; }
+  #preloader.done{ opacity:0; visibility:hidden; }
+  #preloader .pl-mark{ width:64px;height:64px;border-radius:50%;overflow:hidden;background:var(--forest-700);
+    box-shadow:0 12px 30px -12px rgba(17,38,30,.6), inset 0 0 0 1px rgba(201,168,91,.5); animation:plBreath 2.4s var(--ease) infinite; }
+  #preloader .pl-mark img{ width:100%;height:100%;object-fit:cover;transform:scale(1.05); }
+  #preloader .pl-track{ width:160px;height:2px;margin-top:28px;border-radius:2px;background:rgba(156,122,44,.22);overflow:hidden; }
+  #preloader .pl-fill{ height:100%;width:0;border-radius:2px;background:linear-gradient(90deg,var(--forest-500),var(--gold-500));
+    animation:plFill 1.6s var(--ease) forwards; }
+  #preloader .pl-word{ margin-top:18px;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-600); }
+  @keyframes plBreath{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
+  @keyframes plFill{ 0%{width:0} 100%{width:100%} }
+
+  /* ingredient particles */
+  .particles{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .particle{ position:absolute; bottom:-12px; border-radius:50%;
+    background:radial-gradient(closest-side, rgba(201,168,91,.85), rgba(201,168,91,0));
+    animation:floatUp linear infinite; }
+  @keyframes floatUp{
+    0%{ transform:translate(0,0); opacity:0 }
+    12%{ opacity:.55 } 88%{ opacity:.4 }
+    100%{ transform:translate(var(--drift,0), -260px); opacity:0 }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .particle{ display:none !important; }
+    #preloader .pl-mark{ animation:none; }
+  }
+</style>
+
+<script type="application/json" id="speaker-notes">[]</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/framer-motion@11.11.17/dist/framer-motion.js"></script>
+<meta name="ext-resource-dependency" content="assets/hero-flour.png" data-resource-id="heroFlour" />
+<meta name="ext-resource-dependency" content="assets/lifestyle-family.png" data-resource-id="lifestyleFamily" />
+</head>
+<body>
+  <template id="__bundler_thumbnail" data-bg-color="#11261E">
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1200" height="800" fill="#11261E"/>
+      <circle cx="600" cy="400" r="210" fill="none" stroke="#C9A85B" stroke-width="2" stroke-dasharray="6 10"/>
+      <circle cx="600" cy="400" r="150" fill="#F6EFE3"/>
+      <circle cx="600" cy="400" r="150" fill="url(#g)"/>
+      <defs>
+        <radialGradient id="g" cx="0.4" cy="0.35" r="0.8">
+          <stop offset="0" stop-color="#FBF6EC"/>
+          <stop offset="1" stop-color="#E5D6B0"/>
+        </radialGradient>
+      </defs>
+      <text x="600" y="415" text-anchor="middle" font-family="Georgia, serif" font-size="68" fill="#1B3A2F" font-style="italic">BP</text>
+      <text x="600" y="650" text-anchor="middle" font-family="Georgia, serif" font-size="40" fill="#F6EFE3">Balanced Platter</text>
+    </svg>
+  </template>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="preloader">
+    <div class="pl-mark"><img src="assets/logo.png" alt="Balanced Platter"/></div>
+    <div class="pl-track"><div class="pl-fill"></div></div>
+    <div class="pl-word">Balanced Platter</div>
+  </div>
+  <div class="atmosphere"></div>
+  <div class="grain"></div>
+  <div id="root" style="position:relative;z-index:2"></div>
+<script>
+  /* framer-motion 11.x emits a benign internal "unique key" dev-warning for
+     every <motion> component under React's development build. It is a library
+     quirk, not an app bug, and has no runtime/visual effect. Silence just it. */
+  (function(){
+    const orig = console.error;
+    console.error = function(...a){
+      const m = typeof a[0]==='string' ? a[0] : '';
+      if (m.indexOf('unique "key" prop') !== -1) return;
+      orig.apply(console, a);
+    };
+  })();
+</script>
+
+<script type="text/babel" data-presets="env,react">
+const { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent, useInView, animate, useMotionValue, useReducedMotion } = window.Motion;
+const { useState, useEffect, useRef, useMemo } = React;
+/* resolve to inlined blob URL when bundled standalone, else the normal path */
+const RES = (id, path) => (window.__resources && window.__resources[id]) || path;
+
+/* ---------------------------------------------------------------------- *
+ *  NAVBAR — sticky, glassmorphism, shrinks on scroll
+ * ---------------------------------------------------------------------- */
+function Navbar(){
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('');
+  const links = [
+    ['Problem','problem'],['Solution','solution'],['Audience','audience'],['Story','story'],['Evidence','evidence']
+  ];
+  useEffect(()=>{
+    const ids = links.map(l=>l[1]);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      const mid = y + window.innerHeight*0.32;
+      let cur = '';
+      for(const id of ids){
+        const el = document.getElementById(id);
+        if(el && el.offsetTop <= mid) cur = id;
+      }
+      setActive(cur);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    return () => window.removeEventListener('scroll', onScroll);
+  },[]);
+
+  return (
+    <motion.header
+      data-screen-label="Navbar"
+      initial={{y:-20, opacity:0}} animate={{y:0, opacity:1}} transition={{duration:0.6, ease:[0.22,0.61,0.36,1]}}
+      style={{
+        position:'fixed', top:0, left:0, right:0, zIndex:50,
+        padding: scrolled ? '10px 48px' : '20px 48px',
+        transition:'padding .4s cubic-bezier(.22,.61,.36,1), background .4s, border-color .4s, box-shadow .4s',
+        background: scrolled ? 'rgba(251,246,236,0.72)' : 'rgba(251,246,236,0.30)',
+        backdropFilter: scrolled ? 'saturate(180%) blur(18px)' : 'saturate(140%) blur(10px)',
+        WebkitBackdropFilter: scrolled ? 'saturate(180%) blur(18px)' : 'saturate(140%) blur(10px)',
+        borderBottom: scrolled ? '1px solid rgba(31,29,24,0.08)' : '1px solid rgba(31,29,24,0.00)',
+        boxShadow: scrolled ? '0 12px 40px -28px rgba(17,38,30,0.35)' : 'none',
+      }}
+    >
+      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',maxWidth:1440,margin:'0 auto'}}>
+        {/* Brand */}
+        <a href="#top" aria-label="Balanced Platter — back to top" style={{display:'flex',alignItems:'center',gap:14}}>
+          <motion.div
+            animate={{height: scrolled ? 44 : 56, width: scrolled ? 44 : 56}}
+            transition={{duration:.4, ease:[.22,.61,.36,1]}}
+            style={{borderRadius:'50%', overflow:'hidden', background:'var(--forest-700)', boxShadow:'0 6px 18px -8px rgba(17,38,30,0.6), inset 0 0 0 1px rgba(201,168,91,0.4)'}}
+          >
+            <img src="assets/logo.png" alt="" style={{width:'100%',height:'100%',objectFit:'cover',transform:'scale(1.05)'}}/>
+          </motion.div>
+          <div style={{display:'flex',flexDirection:'column',lineHeight:1}}>
+            <span className="serif" style={{fontSize: scrolled ? 19 : 22, color:'var(--forest-700)', fontWeight:500, transition:'font-size .4s'}}>Balanced Platter</span>
+            <span style={{fontSize:10, letterSpacing:'0.22em', textTransform:'uppercase', color:'var(--gold-600)', marginTop:4, fontWeight:500}}>Sugar Control Atta</span>
+          </div>
+        </a>
+
+        {/* Links */}
+        <nav aria-label="Primary" style={{display:'flex',alignItems:'center',gap:30}}>
+          {links.map(([label,id])=>{
+            const on = active===id;
+            return (
+              <a key={id} href={'#'+id} aria-current={on?'true':undefined}
+                 style={{fontSize:13, fontWeight:500, letterSpacing:'0.04em', color: on?'var(--forest-700)':'var(--charcoal)', opacity: on?1:.72, position:'relative', padding:'6px 2px', transition:'opacity .3s, color .3s'}}
+                 onMouseEnter={e=>{ if(!on) e.currentTarget.style.opacity=1; }}
+                 onMouseLeave={e=>{ if(!on) e.currentTarget.style.opacity=0.72; }}
+              >
+                {label}
+                {on && (
+                  <motion.span layoutId="nav-underline"
+                    style={{position:'absolute', left:0, right:0, bottom:-2, height:2, borderRadius:2,
+                      background:'linear-gradient(90deg, var(--gold-500), var(--forest-500))'}}/>
+                )}
+              </a>
+            );
+          })}
+          <a href="#sample" className="cta-press" style={{
+            display:'inline-flex',alignItems:'center',gap:8,
+            padding: scrolled ? '9px 18px' : '11px 22px',
+            background:'var(--forest-700)', color:'var(--cream-soft)',
+            borderRadius:999, fontSize:13, fontWeight:500, letterSpacing:'0.02em',
+            boxShadow:'0 10px 24px -14px rgba(17,38,30,0.55), inset 0 0 0 1px rgba(201,168,91,0.25)'
+          }}
+          onMouseEnter={e=>e.currentTarget.style.background='var(--forest-900)'}
+          onMouseLeave={e=>e.currentTarget.style.background='var(--forest-700)'}>
+            <span style={{width:6,height:6,borderRadius:'50%',background:'var(--gold-400)'}}/>
+            Sample Pack
+          </a>
+        </nav>
+      </div>
+    </motion.header>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SCROLL PROGRESS — thin animated bar
+ * ---------------------------------------------------------------------- */
+function ScrollProgress(){
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {stiffness:120, damping:24, restDelta:0.001});
+  return (
+    <div style={{position:'fixed', top:0, left:0, right:0, height:3, zIndex:60, pointerEvents:'none'}}>
+      <motion.div style={{
+        position:'absolute', inset:0, transformOrigin:'0% 50%',
+        background:'linear-gradient(90deg, var(--gold-500), var(--forest-500) 55%, var(--gold-400))',
+        boxShadow:'0 0 12px rgba(201,168,91,0.55)', scaleX
+      }}/>
+      <motion.div style={{
+        position:'absolute', top:'50%', left:0, width:'100%', transformOrigin:'0% 50%', scaleX
+      }}>
+        <span style={{position:'absolute', right:0, top:-3, width:7, height:7, borderRadius:'50%',
+          background:'var(--gold-400)', boxShadow:'0 0 10px 2px rgba(201,168,91,0.7)'}}/>
+      </motion.div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  STICKY CTA — bottom-right
+ * ---------------------------------------------------------------------- */
+function StickyCTA(){
+  const [show, setShow] = useState(false);
+  useEffect(()=>{
+    const on = () => setShow(window.scrollY > 600);
+    on();
+    window.addEventListener('scroll', on, {passive:true});
+    return () => window.removeEventListener('scroll', on);
+  },[]);
+  const btnRef = useRef(null);
+  const mx = useMotionValue(0), my = useMotionValue(0);
+  const sx = useSpring(mx, {stiffness:220, damping:18}), sy = useSpring(my, {stiffness:220, damping:18});
+  const onMove = (e)=>{
+    const el = btnRef.current; if(!el) return;
+    const r = el.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width/2);
+    const dy = e.clientY - (r.top + r.height/2);
+    mx.set(Math.max(-18, Math.min(18, dx*0.32)));
+    my.set(Math.max(-18, Math.min(18, dy*0.32)));
+  };
+  const onLeave = ()=>{ mx.set(0); my.set(0); };
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.a ref={btnRef} key="sticky-cta" href={SAMPLE_FORM_URL} target="_blank" rel="noopener" aria-label="Request a sample pack (opens form)"
+          initial={{opacity:0, scale:.96}}
+          animate={{opacity:1, scale:1}}
+          exit={{opacity:0, scale:.96}}
+          transition={{duration:.5, ease:[.22,.61,.36,1]}}
+          onMouseMove={onMove} onMouseLeave={onLeave}
+          whileTap={{scale:.97}}
+          style={{
+            position:'fixed', right:32, bottom:32, zIndex:55, x:sx, y:sy,
+            display:'inline-flex', alignItems:'center', gap:12,
+            padding:'14px 22px 14px 16px',
+            background:'var(--forest-700)', color:'var(--cream-soft)',
+            borderRadius:999, fontSize:13, fontWeight:500, letterSpacing:'0.04em',
+            boxShadow:'0 24px 60px -22px rgba(17,38,30,0.55), inset 0 0 0 1px rgba(201,168,91,0.35)'
+          }}>
+          <motion.span
+            animate={{scale:[1,1.12,1]}} transition={{duration:2.6, repeat:Infinity, ease:'easeInOut'}}
+            style={{
+            width:32,height:32,borderRadius:'50%',
+            background:'linear-gradient(135deg, var(--gold-400), var(--gold-600))',
+            display:'grid', placeItems:'center', color:'var(--forest-900)', fontSize:14
+          }}>→</motion.span>
+          Request Sample Pack
+        </motion.a>
+      )}
+    </AnimatePresence>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  HERO
+ * ---------------------------------------------------------------------- */
+function Hero(){
+  const reduced = useReducedMotion();
+  const { scrollY } = useScroll();
+  // parallax
+  const packY    = useTransform(scrollY, [0, 800], [0, 140]);
+  const packRot  = useTransform(scrollY, [0, 800], [0, -3]);
+  const haloY    = useTransform(scrollY, [0, 800], [0, 90]);
+  const copyY    = useTransform(scrollY, [0, 600], [0, -40]);
+  const copyOp   = useTransform(scrollY, [0, 500], [1, 0.2]);
+  const flourY   = useTransform(scrollY, [0, 800], [0, 80]);
+
+  const reveal = {
+    hidden:{opacity:0, y:24},
+    show: i => ({opacity:1, y:0, transition:{duration:.9, delay:0.15 + i*0.08, ease:[.22,.61,.36,1]}})
+  };
+
+  return (
+    <section id="top" data-screen-label="01 Hero" style={{position:'relative', minHeight:'100vh', paddingTop:140, paddingBottom:80, overflow:'hidden'}}>
+      {/* atmospheric stone-ground flour backdrop */}
+      <motion.div aria-hidden="true" style={{position:'absolute', inset:0, zIndex:0, pointerEvents:'none', y:flourY}}>
+        <div style={{position:'absolute', left:0, right:0, bottom:0, height:'58%',
+          backgroundImage:'url(' + RES('heroFlour','assets/hero-flour.png') + ')', backgroundSize:'cover', backgroundPosition:'center 70%',
+          opacity:0.55,
+          WebkitMaskImage:'linear-gradient(to top, #000 0%, #000 30%, transparent 100%)',
+          maskImage:'linear-gradient(to top, #000 0%, #000 30%, transparent 100%)'}}/>
+      </motion.div>
+      {/* Editorial corner labels */}
+      <div style={{position:'absolute', top:120, left:48, fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--ink-60)', display:'flex', alignItems:'center', gap:14}}>
+        <span style={{width:32,height:1,background:'var(--gold-600)'}}/> Vol. 01 — A Quiet Daily Decision
+      </div>
+      <div style={{position:'absolute', top:120, right:48, fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--ink-60)'}}>
+        Est. 2026 · Hyderabad, IN
+      </div>
+
+      {/* faint wheat watermark line */}
+      <svg viewBox="0 0 1400 800" preserveAspectRatio="none" style={{position:'absolute', inset:0, width:'100%', height:'100%', opacity:.18, pointerEvents:'none'}}>
+        <defs>
+          <linearGradient id="wline" x1="0" x2="1">
+            <stop offset="0" stopColor="#9C7A2C" stopOpacity="0"/>
+            <stop offset=".5" stopColor="#9C7A2C" stopOpacity=".8"/>
+            <stop offset="1" stopColor="#9C7A2C" stopOpacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M-40,560 C220,540 400,640 700,560 C980,490 1180,600 1480,500" fill="none" stroke="url(#wline)" strokeWidth="1"/>
+        <path d="M-40,610 C260,590 460,690 740,610 C1020,540 1220,650 1480,560" fill="none" stroke="url(#wline)" strokeWidth="1"/>
+      </svg>
+
+      <div style={{maxWidth:1440, margin:'0 auto', padding:'0 48px', display:'grid', gridTemplateColumns:'1.05fr 1fr', gap:64, alignItems:'center', position:'relative', zIndex:1}}>
+
+        {/* LEFT: editorial copy */}
+        <motion.div style={{y:copyY, opacity:copyOp}}>
+          <motion.div initial="hidden" animate="show" variants={reveal} custom={0}
+            style={{display:'inline-flex',alignItems:'center',gap:10,
+              padding:'7px 14px 7px 8px', borderRadius:999,
+              background:'rgba(251,246,236,0.6)', border:'1px solid rgba(156,122,44,0.30)',
+              fontSize:11, letterSpacing:'0.22em', textTransform:'uppercase', color:'var(--forest-700)', fontWeight:500
+            }}>
+              <span style={{width:22,height:22,borderRadius:'50%',background:'var(--forest-700)',color:'var(--gold-400)',display:'grid',placeItems:'center',fontSize:10,fontWeight:600}}>BP</span>
+              Low GI · 100% Natural
+          </motion.div>
+
+          <motion.h1 initial="hidden" animate="show" variants={reveal} custom={1}
+            className="serif"
+            style={{margin:'28px 0 0', fontSize:88, lineHeight:0.98, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, textWrap:'pretty'}}>
+            A <em style={{fontStyle:'italic', color:'var(--gold-600)', fontWeight:400}}>smarter</em> flour<br/>
+            for blood sugar–<br/>conscious living.
+          </motion.h1>
+
+          <motion.p initial="hidden" animate="show" variants={reveal} custom={2}
+            style={{maxWidth:520, marginTop:28, fontSize:17, lineHeight:1.55, color:'var(--ink-60)', fontWeight:400}}>
+            Balanced Platter Sugar Control Atta is thoughtfully crafted for people who want familiar everyday meals — with smarter nutritional choices baked into the very first bite.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div initial="hidden" animate="show" variants={reveal} custom={3}
+            style={{display:'flex', gap:14, marginTop:40, alignItems:'center'}}>
+            <a href={SAMPLE_FORM_URL} target="_blank" rel="noopener" className="cta-press cta-group"
+              onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-2px)'}}
+              onMouseLeave={e=>{e.currentTarget.style.transform='translateY(0)'}}
+              style={{
+                display:'inline-flex',alignItems:'center',gap:14,
+                padding:'16px 14px 16px 26px',
+                background:'var(--forest-700)', color:'var(--cream-soft)',
+                borderRadius:999, fontSize:14, fontWeight:500, letterSpacing:'0.03em',
+                boxShadow:'0 18px 38px -20px rgba(17,38,30,0.7), inset 0 0 0 1px rgba(201,168,91,0.3)'
+              }}>
+              Request Sample Pack
+              <span className="btn-arrow" style={{width:34,height:34,borderRadius:'50%',background:'var(--gold-500)',color:'var(--forest-900)',display:'grid',placeItems:'center',fontSize:16,fontWeight:600}}>→</span>
+            </a>
+            <a href="#problem" className="cta-press cta-group"
+              onMouseEnter={e=>{e.currentTarget.style.background='rgba(35,73,59,0.08)'}}
+              onMouseLeave={e=>{e.currentTarget.style.background='rgba(251,246,236,0.4)'}}
+              style={{
+                display:'inline-flex',alignItems:'center',gap:10,
+                padding:'15px 22px',
+                color:'var(--forest-700)', borderRadius:999, fontSize:14, fontWeight:500, letterSpacing:'0.03em',
+                border:'1px solid rgba(35,73,59,0.28)', background:'rgba(251,246,236,0.4)'
+              }}>
+              Explore the Story
+              <span className="btn-arrow" style={{fontSize:18, lineHeight:0}}>↓</span>
+            </a>
+          </motion.div>
+
+          {/* Trust strip */}
+          <motion.div initial="hidden" animate="show" variants={reveal} custom={4}
+            style={{display:'flex', gap:36, marginTop:56, paddingTop:28, borderTop:'1px solid rgba(31,29,24,0.10)', maxWidth:560}}>
+            {[
+              ['G·I', 'Low Glycemic'],
+              ['100', '% Natural'],
+              ['1 KG', 'Pack Size'],
+              ['IN', 'Made in India']
+            ].map(([k,v],i)=>(
+              <div key={k} style={{display:'flex',flexDirection:'column',gap:4}}>
+                <span className="serif" style={{fontSize:22, color:'var(--forest-700)', fontWeight:500, letterSpacing:'-0.01em'}}>{k}</span>
+                <span style={{fontSize:11, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--ink-60)'}}>{v}</span>
+              </div>
+            ))}
+          </motion.div>
+        </motion.div>
+
+        {/* RIGHT: product hero composition */}
+        <div style={{position:'relative', height:720, display:'flex',alignItems:'center',justifyContent:'center'}}>
+          {/* gold halo */}
+          <motion.div style={{
+            position:'absolute', width:520, height:520, borderRadius:'50%',
+            background:'radial-gradient(closest-side, rgba(201,168,91,0.35), rgba(201,168,91,0) 70%)',
+            filter:'blur(2px)', y:haloY
+          }}/>
+          {/* soft circular plate */}
+          <motion.div
+            initial={{opacity:0, scale:.92}}
+            animate={{opacity:1, scale:1}}
+            transition={{duration:1.2, ease:[.22,.61,.36,1], delay:.2}}
+            style={{
+              position:'absolute', width:560, height:560, borderRadius:'50%',
+              background:'radial-gradient(closest-side, #FBF6EC, #F0E6CC 70%, #E5D6B0)',
+              boxShadow:'0 60px 120px -40px rgba(82,67,30,0.35), inset 0 0 0 1px rgba(156,122,44,0.22)'
+            }}
+          />
+          {/* concentric ring */}
+          <motion.div
+            initial={{opacity:0, rotate:-30}}
+            animate={{opacity:1, rotate:0}}
+            transition={{duration:1.8, ease:[.22,.61,.36,1], delay:.3}}
+            style={{
+              position:'absolute', width:640, height:640, borderRadius:'50%',
+              border:'1px dashed rgba(156,122,44,0.4)'
+            }}
+          />
+          {/* rotating tag ring */}
+          <motion.svg
+            animate={reduced ? {} : {rotate:360}}
+            transition={{duration:90, ease:'linear', repeat:Infinity}}
+            viewBox="0 0 700 700" width="700" height="700"
+            style={{position:'absolute'}}>
+            <defs>
+              <path id="ring" d="M 350,350 m -300,0 a 300,300 0 1,1 600,0 a 300,300 0 1,1 -600,0"/>
+            </defs>
+            <text fill="#9C7A2C" fontFamily="'Hanken Grotesk',sans-serif" fontSize="11" letterSpacing="6">
+              <textPath href="#ring">  •  LOW GLYCEMIC INDEX  •  WHOLE-GRAIN BLEND  •  STONE GROUND  •  NO PRESERVATIVES  •  MADE IN INDIA  •  </textPath>
+            </text>
+          </motion.svg>
+
+          {/* product pack */}
+          <motion.div style={{position:'relative', zIndex:2, y: packY, rotate: packRot}}>
+            <motion.img
+              src="assets/product-pack.png"
+              alt="Balanced Platter Sugar Control Atta — 1 KG pack"
+              initial={{opacity:0, y:60, scale:.94}}
+              animate={{
+                opacity:1, y: reduced ? 0 : [0,-14,0], scale:1,
+              }}
+              transition={{
+                opacity:{duration:1, delay:.4},
+                scale:{duration:1, delay:.4, ease:[.22,.61,.36,1]},
+                y: reduced ? {duration:1, delay:.4} : {duration:6, repeat:Infinity, ease:'easeInOut', delay:1}
+              }}
+              style={{
+                display:'block', height:620,
+                filter:'drop-shadow(0 60px 60px rgba(17,38,30,0.35)) drop-shadow(0 20px 20px rgba(17,38,30,0.18))'
+              }}
+            />
+          </motion.div>
+
+          {/* floating label cards */}
+          <FloatingLabel
+            style={{top:90, left:-10}}
+            delay={1.0}
+            kpi="Low GI"
+            label="Glycemic Index"
+            sub="Slow, steady release"
+          />
+          <FloatingLabel
+            style={{top:300, right:-20}}
+            delay={1.25}
+            kpi="0g"
+            label="Added Sugar"
+            sub="Per 100g serving"
+          />
+          <FloatingLabel
+            style={{bottom:80, left:24}}
+            delay={1.5}
+            kpi="High"
+            label="Dietary Fibre"
+            sub="Multigrain blend"
+          />
+        </div>
+      </div>
+
+      {/* scroll cue */}
+      <motion.div
+        initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.6, duration:1}}
+        style={{position:'absolute', bottom:36, left:'50%', transform:'translateX(-50%)', display:'flex', flexDirection:'column', alignItems:'center', gap:14}}>
+        <span style={{fontSize:10, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--ink-60)'}}>Scroll · The story</span>
+        <motion.span
+          animate={{y:[0,8,0]}} transition={{repeat:Infinity, duration:2, ease:'easeInOut'}}
+          style={{width:1, height:36, background:'linear-gradient(180deg, var(--gold-500), transparent)'}}
+        />
+      </motion.div>
+    </section>
+  );
+}
+
+function FloatingLabel({style, kpi, label, sub, delay=0}){
+  return (
+    <motion.div
+      initial={{opacity:0, y:20}}
+      animate={{opacity:1, y:0}}
+      transition={{delay, duration:.9, ease:[.22,.61,.36,1]}}
+      whileHover={{y:-4}}
+      style={{
+        position:'absolute', zIndex:3, ...style,
+        background:'rgba(251,246,236,0.78)',
+        backdropFilter:'blur(12px) saturate(160%)',
+        WebkitBackdropFilter:'blur(12px) saturate(160%)',
+        border:'1px solid rgba(156,122,44,0.22)',
+        boxShadow:'0 18px 38px -20px rgba(17,38,30,0.45)',
+        borderRadius:14, padding:'12px 16px',
+        minWidth:160
+      }}>
+      <div style={{display:'flex', alignItems:'baseline', gap:6}}>
+        <span className="serif" style={{fontSize:26, color:'var(--forest-700)', fontWeight:500, letterSpacing:'-0.02em'}}>{kpi}</span>
+        <span style={{fontSize:10, letterSpacing:'0.22em', textTransform:'uppercase', color:'var(--gold-600)'}}>{label}</span>
+      </div>
+      <div style={{fontSize:12, color:'var(--ink-60)', marginTop:2}}>{sub}</div>
+    </motion.div>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  COUNTER
+ * ---------------------------------------------------------------------- */
+function Counter({to, duration=2, suffix='', decimals=0, inView}){
+  const [val, setVal] = useState(0);
+  useEffect(()=>{
+    if(!inView) return;
+    const ctrl = animate(0, to, {
+      duration,
+      ease:[.22,.61,.36,1],
+      onUpdate: v => setVal(v)
+    });
+    return ()=>ctrl.stop();
+  },[inView, to, duration]);
+  const fmt = decimals>0 ? val.toFixed(decimals) : Math.round(val).toLocaleString('en-IN');
+  return <span>{fmt}{suffix}</span>;
+}
+
+/* ---------------------------------------------------------------------- *
+ *  PROBLEM SECTION
+ * ---------------------------------------------------------------------- */
+function Problem(){
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, {once:true, margin:'-15% 0px'});
+
+  return (
+    <section id="problem" ref={sectionRef} data-screen-label="02 Problem" style={{position:'relative', padding:'180px 48px 180px', overflow:'hidden'}}>
+      {/* deep cream backdrop */}
+      <div style={{position:'absolute',inset:'80px 0 0', borderRadius:'40px 40px 0 0',
+        background:'linear-gradient(180deg, #EFE6D2 0%, #E8DEC8 60%, #E2D5B7 100%)',
+        boxShadow:'inset 0 1px 0 rgba(255,255,255,0.5)'
+      }}/>
+      <SectionWatermark n="01"/>
+      <div style={{position:'relative', zIndex:1, maxWidth:1280, margin:'0 auto'}}>
+
+        {/* Section heading */}
+        <div style={{display:'grid', gridTemplateColumns:'auto 1fr', gap:48, alignItems:'end', marginBottom:80}}>
+          <motion.div
+            initial={{opacity:0, y:24}}
+            animate={inView ? {opacity:1, y:0} : {}}
+            transition={{duration:.9, ease:[.22,.61,.36,1]}}
+          >
+            <div style={{display:'flex',alignItems:'center', gap:12, marginBottom:18}}>
+              <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--gold-600)', fontWeight:500}}>§ 01</span>
+              <span style={{width:48, height:1, background:'var(--gold-600)', opacity:.6}}/>
+              <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--ink-60)'}}>The Problem</span>
+            </div>
+            <h2 className="serif" style={{margin:0, fontSize:64, lineHeight:1.02, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, maxWidth:780, textWrap:'pretty'}}>
+              A growing challenge<br/>in everyday <InkUnderline>Indian</InkUnderline> living.
+            </h2>
+          </motion.div>
+          <motion.p
+            initial={{opacity:0, y:18}}
+            animate={inView ? {opacity:1, y:0} : {}}
+            transition={{duration:.9, delay:.15, ease:[.22,.61,.36,1]}}
+            style={{margin:0, maxWidth:380, marginLeft:'auto', fontSize:16, lineHeight:1.6, color:'var(--ink-60)', textWrap:'pretty'}}>
+            For millions of Indians, managing blood sugar is not a once-a-year health decision —
+            <span style={{color:'var(--forest-700)', fontWeight:500}}> it is a daily food decision.</span>
+          </motion.p>
+        </div>
+
+        {/* Stat cards */}
+        <div style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:24, marginBottom:96}}>
+          {[
+            {
+              idx:'01',
+              to:101, suffix:'M+', sub:'Indians living with diabetes',
+              note:'Roughly 1 in every 11 adults. The world\'s second largest diabetic population.',
+              source:'ICMR–INDIAB, 2023',
+              tone:'forest'
+            },
+            {
+              idx:'02',
+              to:136, suffix:'M+', sub:'Estimated prediabetes burden',
+              note:'A silent majority — most unaware, most untested, most still eating wheat at every meal.',
+              source:'Lancet Diabetes & Endocrinology',
+              tone:'gold'
+            },
+            {
+              idx:'03',
+              to:90, suffix:'%', sub:'Households eating wheat daily',
+              note:'Wheat-based meals — roti, paratha, poori — remain the quiet centerpiece of daily life.',
+              source:'NSSO Consumption Survey',
+              tone:'cream'
+            }
+          ].map((s,i)=>(
+            <StatCard key={s.idx} {...s} delay={0.15 + i*0.12} inView={inView}/>
+          ))}
+        </div>
+
+        {/* Editorial pull-quote + chart */}
+        <div style={{display:'grid', gridTemplateColumns:'0.85fr 1.15fr', gap:48, alignItems:'stretch'}}>
+          <motion.div
+            initial={{opacity:0, y:24}}
+            animate={inView ? {opacity:1, y:0} : {}}
+            transition={{duration:.9, delay:.5, ease:[.22,.61,.36,1]}}
+            style={{
+              padding:'40px 36px', borderRadius:18,
+              background:'rgba(17,38,30,0.96)', color:'var(--cream-soft)',
+              boxShadow:'0 30px 60px -30px rgba(17,38,30,0.5), inset 0 0 0 1px rgba(201,168,91,0.25)',
+              display:'flex', flexDirection:'column', justifyContent:'space-between'
+            }}>
+            <div>
+              <span className="serif" style={{fontSize:80, lineHeight:0.6, color:'var(--gold-400)', display:'block', height:32}}>“</span>
+              <p className="serif" style={{margin:'12px 0 0', fontSize:30, lineHeight:1.25, letterSpacing:'-0.01em', fontWeight:400, fontStyle:'italic', textWrap:'pretty'}}>
+                The Indian plate hasn't fundamentally changed. The Indian metabolism has.
+              </p>
+            </div>
+            <div style={{marginTop:36, display:'flex', alignItems:'center', gap:12}}>
+              <span style={{width:28, height:1, background:'var(--gold-400)'}}/>
+              <span style={{fontSize:11, letterSpacing:'0.2em', textTransform:'uppercase', color:'rgba(246,239,227,0.65)'}}>The everyday reality</span>
+            </div>
+          </motion.div>
+
+          <DiabetesChart inView={inView}/>
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+function StatCard({idx, to, suffix, sub, note, source, tone, delay, inView}){
+  const palettes = {
+    forest:{bg:'#FBF6EC', ink:'var(--forest-900)', accent:'var(--forest-700)', tag:'var(--gold-600)'},
+    gold:  {bg:'linear-gradient(180deg, #FBF6EC, #F0E6CC)', ink:'var(--forest-900)', accent:'var(--gold-600)', tag:'var(--forest-700)'},
+    cream: {bg:'#FBF6EC', ink:'var(--forest-900)', accent:'var(--forest-700)', tag:'var(--gold-600)'}
+  };
+  const p = palettes[tone];
+  return (
+    <motion.div
+      initial={{opacity:0, y:28}}
+      animate={inView ? {opacity:1, y:0} : {}}
+      transition={{duration:.9, delay, ease:[.22,.61,.36,1]}}
+      whileHover={{y:-6}}
+      style={{
+        position:'relative', padding:'32px 30px 28px', borderRadius:18,
+        background:p.bg, color:p.ink,
+        border:'1px solid rgba(156,122,44,0.18)',
+        boxShadow:'0 24px 50px -30px rgba(82,67,30,0.45)',
+        overflow:'hidden', transition:'transform .4s, box-shadow .4s'
+      }}>
+      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:36}}>
+        <span style={{fontSize:11, letterSpacing:'0.28em', textTransform:'uppercase', color:p.tag, fontWeight:500}}>Fig. {idx}</span>
+        <span style={{width:8,height:8, borderRadius:'50%', background:p.accent, boxShadow:`0 0 0 4px ${tone==='gold' ? 'rgba(182,145,64,.15)' : 'rgba(35,73,59,.12)'}`}}/>
+      </div>
+
+      <div className="serif" style={{fontSize:104, lineHeight:0.95, letterSpacing:'-0.04em', color:p.accent, fontWeight:400, display:'flex', alignItems:'baseline'}}>
+        <Counter to={to} suffix={suffix} duration={2.2} inView={inView}/>
+      </div>
+      <div style={{marginTop:10, fontSize:15, fontWeight:500, color:p.ink}}>{sub}</div>
+      <p style={{marginTop:14, fontSize:13.5, lineHeight:1.55, color:'var(--ink-60)', textWrap:'pretty'}}>{note}</p>
+
+      <div style={{marginTop:24, paddingTop:16, borderTop:'1px dashed rgba(156,122,44,0.35)', display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+        <span style={{fontSize:11, letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--ink-60)'}}>Source</span>
+        <span style={{fontSize:11, color:p.ink, fontWeight:500}}>{source}</span>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  CHART — animated line graph
+ * ---------------------------------------------------------------------- */
+function DiabetesChart({inView}){
+  // India diabetes burden, millions — indicative composite of ICMR-INDIAB & IDF figures
+  const data = [
+    {y:'2000', v:30}, {y:'2005', v:42}, {y:'2010', v:55},
+    {y:'2015', v:69}, {y:'2019', v:77}, {y:'2021', v:90}, {y:'2023', v:101}, {y:'2030', v:135}
+  ];
+  // chart geometry
+  const W=540, H=340, P={t:40, r:32, b:48, l:48};
+  const maxV = 140;
+  const xs = (i) => P.l + (i/(data.length-1)) * (W - P.l - P.r);
+  const ys = (v) => H - P.b - (v/maxV) * (H - P.t - P.b);
+  const pts = data.map((d,i)=>[xs(i), ys(d.v)]);
+  const path = pts.map(([x,y],i)=> i===0?`M${x},${y}`:`L${x},${y}`).join(' ');
+  const area = path + ` L${xs(data.length-1)},${H-P.b} L${xs(0)},${H-P.b} Z`;
+
+  const pathRef = useRef(null);
+  const [len, setLen] = useState(0);
+  useEffect(()=>{ if(pathRef.current) setLen(pathRef.current.getTotalLength()); },[]);
+
+  return (
+    <motion.div
+      initial={{opacity:0, y:24}}
+      animate={inView ? {opacity:1, y:0} : {}}
+      transition={{duration:.9, delay:.6, ease:[.22,.61,.36,1]}}
+      style={{
+        position:'relative', borderRadius:18,
+        background:'rgba(251,246,236,0.85)',
+        backdropFilter:'blur(10px)',
+        border:'1px solid rgba(156,122,44,0.22)',
+        boxShadow:'0 30px 60px -30px rgba(82,67,30,0.45)',
+        padding:'30px 32px 24px',
+        display:'flex', flexDirection:'column'
+      }}>
+      <div style={{display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:12}}>
+        <div>
+          <div style={{fontSize:11, letterSpacing:'0.28em', textTransform:'uppercase', color:'var(--gold-600)', fontWeight:500, marginBottom:8}}>Fig. 04 — India · 2000–2030 (projected)</div>
+          <h3 className="serif" style={{margin:0, fontSize:28, color:'var(--forest-900)', fontWeight:500, letterSpacing:'-0.01em'}}>The line that won't bend.</h3>
+        </div>
+        <div style={{display:'flex', gap:14, alignItems:'center'}}>
+          <span style={{display:'inline-flex',alignItems:'center',gap:8, fontSize:11, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--ink-60)'}}>
+            <span style={{width:14, height:2, background:'var(--forest-700)'}}/> Diabetic adults (M)
+          </span>
+        </div>
+      </div>
+
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{display:'block', flex:1}}>
+        <defs>
+          <linearGradient id="area" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stopColor="#23493B" stopOpacity=".28"/>
+            <stop offset="1" stopColor="#23493B" stopOpacity="0"/>
+          </linearGradient>
+          <linearGradient id="line" x1="0" x2="1">
+            <stop offset="0" stopColor="#1B3A2F"/>
+            <stop offset=".7" stopColor="#23493B"/>
+            <stop offset="1" stopColor="#9C7A2C"/>
+          </linearGradient>
+        </defs>
+
+        {/* gridlines */}
+        {[0,35,70,105,140].map((g,i)=>{
+          const y = ys(g);
+          return (
+            <g key={g}>
+              <line x1={P.l} x2={W-P.r} y1={y} y2={y} stroke="rgba(31,29,24,0.08)" strokeDasharray="2 4"/>
+              <text x={P.l-10} y={y+4} fontSize="10" textAnchor="end" fill="rgba(31,29,24,0.55)" fontFamily="'Hanken Grotesk'">{g}M</text>
+            </g>
+          );
+        })}
+
+        {/* x labels */}
+        {data.map((d,i)=>(
+          <text key={d.y} x={xs(i)} y={H-P.b+22} fontSize="10" textAnchor="middle" fill="rgba(31,29,24,0.55)" fontFamily="'Hanken Grotesk'">{d.y}</text>
+        ))}
+
+        {/* area fill */}
+        <motion.path d={area}
+          fill="url(#area)"
+          initial={{opacity:0}}
+          animate={inView ? {opacity:1} : {}}
+          transition={{duration:1.4, delay:1.2}}
+        />
+
+        {/* main line */}
+        <motion.path
+          ref={pathRef}
+          d={path}
+          fill="none"
+          stroke="url(#line)"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={len ? {strokeDasharray:len, strokeDashoffset: inView ? 0 : len} : {}}
+          initial={false}
+          transition={{duration:2.4, ease:[.22,.61,.36,1], delay:.8}}
+        />
+
+        {/* dots */}
+        {pts.map(([x,y],i)=>(
+          <motion.circle key={i} cx={x} cy={y} r={i===data.length-1 ? 5 : 3.2}
+            fill={i===data.length-1 ? '#9C7A2C' : '#1B3A2F'}
+            stroke="#FBF6EC" strokeWidth={i===data.length-1 ? 3 : 2}
+            initial={{opacity:0, scale:0}}
+            animate={inView ? {opacity:1, scale:1} : {}}
+            transition={{duration:.5, delay: 0.9 + i*0.18}}
+          />
+        ))}
+
+        {/* annotation: 2023 */}
+        <motion.g initial={{opacity:0}} animate={inView ? {opacity:1} : {}} transition={{delay:2.4, duration:.7}}>
+          <line x1={xs(6)} x2={xs(6)} y1={ys(data[6].v)-10} y2={ys(data[6].v)-50} stroke="rgba(156,122,44,0.55)" strokeDasharray="2 3"/>
+          <rect x={xs(6)-44} y={ys(data[6].v)-78} width="88" height="28" rx="6" fill="#1B3A2F"/>
+          <text x={xs(6)} y={ys(data[6].v)-60} textAnchor="middle" fill="#F6EFE3" fontSize="11" fontFamily="'Hanken Grotesk'" fontWeight="600">2023 · 101M+</text>
+        </motion.g>
+
+        {/* annotation: 2030 projected */}
+        <motion.g initial={{opacity:0}} animate={inView ? {opacity:1} : {}} transition={{delay:2.7, duration:.7}}>
+          <text x={xs(7)} y={ys(data[7].v)-16} textAnchor="end" fill="#9C7A2C" fontSize="11" fontFamily="'Hanken Grotesk'" fontWeight="600">Projected →</text>
+        </motion.g>
+      </svg>
+
+      <div style={{marginTop:12, paddingTop:14, borderTop:'1px dashed rgba(156,122,44,0.35)', display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+        <span style={{fontSize:11, color:'var(--ink-60)', maxWidth:360, lineHeight:1.5}}>
+          Illustrative trend — indicative composite of ICMR–INDIAB and IDF estimates. Directional, not a precise forecast.
+        </span>
+        <span className="serif" style={{fontSize:20, color:'var(--forest-700)', letterSpacing:'-0.01em'}}>+ 4.5× since 2000</span>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SHARED — section header (matches Phase 1 vocabulary)
+ * ---------------------------------------------------------------------- */
+function SectionTag({num, label, inView, dark}){
+  return (
+    <motion.div
+      initial={{opacity:0, y:18}}
+      animate={inView ? {opacity:1, y:0} : {}}
+      transition={{duration:.8, ease:[.22,.61,.36,1]}}
+      style={{display:'flex',alignItems:'center', gap:12, marginBottom:20}}>
+      <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--gold-600)', fontWeight:500}}>§ {num}</span>
+      <span style={{width:48, height:1, background:'var(--gold-600)', opacity:.6}}/>
+      <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color: dark ? 'rgba(246,239,227,0.7)' : 'var(--ink-60)'}}>{label}</span>
+    </motion.div>
+  );
+}
+
+/* Giant faint section-number watermark (editorial rhythm) */
+function SectionWatermark({n, dark=false, top=-10, right=24}){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-15% 0px'});
+  return (
+    <motion.span ref={ref} aria-hidden="true" className="serif"
+      initial={{opacity:0, y:30}}
+      animate={inView ? {opacity:1, y:0} : {}}
+      transition={{duration:1.2, ease:[.22,.61,.36,1]}}
+      style={{position:'absolute', top, right, zIndex:0, pointerEvents:'none', userSelect:'none',
+        fontSize:'clamp(240px, 27vw, 440px)', lineHeight:0.74, fontWeight:400, letterSpacing:'-0.05em',
+        color: dark ? 'rgba(246,239,227,0.055)' : 'rgba(27,58,47,0.05)'}}>{n}</motion.span>
+  );
+}
+
+/* Hand-drawn ink underline that draws on when scrolled into view */
+function InkUnderline({children, dark=false}){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-8% 0px'});
+  return (
+    <em ref={ref} style={{position:'relative', display:'inline-block', fontStyle:'italic', color: dark?'var(--gold-400)':'var(--gold-600)'}}>
+      {children}
+      <svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"
+        style={{position:'absolute', left:0, bottom:'-0.16em', width:'100%', height:'0.4em', overflow:'visible'}}>
+        <motion.path d="M2,7 C42,2.5 92,11 132,6 C162,2.5 186,7.5 198,5" fill="none"
+          stroke={dark?'var(--gold-400)':'var(--gold-500)'} strokeWidth="2.6" strokeLinecap="round"
+          initial={{pathLength:0, opacity:0}} animate={inView?{pathLength:1, opacity:1}:{}}
+          transition={{duration:1, delay:.55, ease:[.22,.61,.36,1]}}/>
+      </svg>
+    </em>
+  );
+}
+
+/* Whole-screen pointer-driven 3D tilt (cursor anywhere on screen drives it) */
+function usePointerTilt({ry=15, rx=10, tx=26}={}){
+  const pmx = useMotionValue(0), pmy = useMotionValue(0);
+  const rotY  = useSpring(useTransform(pmx, [-1,1], [-ry, ry]), {stiffness:80, damping:18});
+  const rotX  = useSpring(useTransform(pmy, [-1,1], [rx, -rx]), {stiffness:80, damping:18});
+  const tiltX = useSpring(useTransform(pmx, [-1,1], [-tx, tx]), {stiffness:80, damping:18});
+  useEffect(()=>{
+    const on = (e)=>{
+      pmx.set((e.clientX / window.innerWidth) * 2 - 1);
+      pmy.set((e.clientY / window.innerHeight) * 2 - 1);
+    };
+    window.addEventListener('pointermove', on, {passive:true});
+    return ()=> window.removeEventListener('pointermove', on);
+  },[]);
+  return { rotX, rotY, tiltX };
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SECTION 3 — THE GAP  (sticky scroll storytelling)
+ * ---------------------------------------------------------------------- */
+const GAP_STEPS = [
+  {
+    n:'01', kicker:'The familiar default',
+    title:'Everyday Flour',
+    lead:'Familiar. Convenient. Part of daily life.',
+    body:'It has earned its place at the centre of the table over generations. It simply was never specifically designed with blood sugar–conscious lifestyles in mind.'
+  },
+  {
+    n:'02', kicker:'The well-meaning detour',
+    title:'Many Specialty Alternatives',
+    lead:'Often promise better outcomes.',
+    body:'Yet adoption can quietly stall over time —',
+    list:['texture compromises','an unfamiliar cooking experience','difficult day-to-day adoption']
+  },
+  {
+    n:'03', kicker:'Where we focus',
+    title:'The Missing Middle',
+    lead:'A practical everyday flour, balancing three things at once.',
+    body:'',
+    list:['familiarity','everyday usability','nutritional intent']
+  },
+  {
+    n:'04', kicker:'The answer',
+    title:'A flour built for the middle.',
+    lead:'Everything you already do — reconsidered from the inside out.',
+    body:'',
+    reveal:true
+  }
+];
+
+const GAP_COMPARE = [
+  {img:'assets/regular-roti.png', tag:'The default', t:'Everyday Flour', d:'Familiar and convenient — but never designed with blood sugar in mind.', tone:'plain'},
+  {img:'assets/gap-alternatives.png', tag:'The detour', t:'Specialty Alternatives', d:'Well-intentioned, yet often hard to cook, enjoy and sustain.', tone:'plain'},
+  {img:'assets/bp-roti-transparent.png', tag:'The answer', t:'Balanced Platter', d:'The missing middle — familiar, usable and nutritionally considered.', tone:'answer'},
+];
+
+function TheGap(){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-12% 0px'});
+  return (
+    <section id="gap" ref={ref} data-screen-label="03 The Gap"
+      style={{position:'relative', padding:'120px 48px 130px', background:'var(--cream)', overflow:'hidden'}}>
+      <SectionWatermark n="02"/>
+      <div style={{position:'relative', zIndex:1, maxWidth:1280, margin:'0 auto'}}>
+        {/* heading */}
+        <div style={{display:'grid', gridTemplateColumns:'auto 1fr', gap:48, alignItems:'end', marginBottom:60}}>
+          <motion.div initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, ease:[.22,.61,.36,1]}}>
+            <div style={{display:'flex',alignItems:'center', gap:12, marginBottom:18}}>
+              <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--gold-600)', fontWeight:500}}>§ 02</span>
+              <span style={{width:48, height:1, background:'var(--gold-600)', opacity:.6}}/>
+              <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--ink-60)'}}>The Gap</span>
+            </div>
+            <h2 className="serif" style={{margin:0, fontSize:58, lineHeight:1.04, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, maxWidth:720, textWrap:'pretty'}}>
+              Why existing choices leave a <InkUnderline>gap</InkUnderline>.
+            </h2>
+          </motion.div>
+          <motion.p initial={{opacity:0,y:18}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, delay:.15}}
+            style={{margin:0, maxWidth:360, marginLeft:'auto', fontSize:16, lineHeight:1.6, color:'var(--ink-60)', textWrap:'pretty'}}>
+            Two familiar options — and the practical middle they leave behind.
+          </motion.p>
+        </div>
+
+        {/* 3-up comparison */}
+        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:24, alignItems:'stretch'}}>
+          {GAP_COMPARE.map((c,i)=>{
+            const answer = c.tone==='answer';
+            return (
+              <motion.div key={c.t}
+                initial={{opacity:0, y:30}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:.8, delay:.2+i*0.12, ease:[.22,.61,.36,1]}}
+                whileHover={{y:-6}}
+                style={{position:'relative', display:'flex', flexDirection:'column', alignItems:'center', textAlign:'center',
+                  padding:'38px 30px 34px', borderRadius:22, overflow:'hidden',
+                  background: answer ? 'linear-gradient(170deg, #1B3A2F, #11261E)' : 'var(--cream-soft)',
+                  border: answer ? '1px solid rgba(201,168,91,0.4)' : '1px solid rgba(156,122,44,0.18)',
+                  boxShadow: answer ? '0 44px 80px -40px rgba(17,38,30,0.6)' : '0 26px 54px -38px rgba(82,67,30,0.45)'}}>
+                {answer && <span style={{position:'absolute', top:18, right:18, fontSize:10, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--forest-900)', background:'linear-gradient(135deg, var(--gold-400), var(--gold-600))', padding:'5px 11px', borderRadius:999, fontWeight:700}}>Our answer</span>}
+                <div style={{height:200, display:'grid', placeItems:'center', marginBottom:18}}>
+                  <motion.img src={c.img} alt={c.t} loading="lazy"
+                    animate={{y:[0,-8,0]}} transition={{duration:6+i, repeat:Infinity, ease:'easeInOut'}}
+                    style={{maxWidth: answer?190:210, maxHeight:200, objectFit:'contain',
+                      filter: answer ? 'drop-shadow(0 26px 34px rgba(0,0,0,0.4))' : 'drop-shadow(0 22px 30px rgba(82,67,30,0.3))'}}/>
+                </div>
+                <span className="mono" style={{fontSize:10.5, letterSpacing:'0.2em', textTransform:'uppercase', color: answer ? 'var(--gold-400)' : 'var(--gold-600)'}}>{c.tag}</span>
+                <h3 className="serif" style={{margin:'10px 0 0', fontSize:27, lineHeight:1.1, letterSpacing:'-0.01em', fontWeight:500, color: answer ? 'var(--cream-soft)' : 'var(--forest-900)'}}>{c.t}</h3>
+                <p style={{margin:'12px 0 0', fontSize:14.5, lineHeight:1.5, color: answer ? 'rgba(246,239,227,0.72)' : 'var(--ink-60)', textWrap:'pretty'}}>{c.d}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GapHeading(){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-20% 0px'});
+  return (
+    <div ref={ref} style={{maxWidth:820, marginBottom:8}}>
+      <SectionTag num="02" label="The Gap" inView={inView}/>
+      <motion.h2 className="serif"
+        initial={{opacity:0, y:24}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, ease:[.22,.61,.36,1]}}
+        style={{margin:0, fontSize:60, lineHeight:1.04, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, textWrap:'pretty'}}>
+        Why existing choices<br/>leave a <em style={{fontStyle:'italic', color:'var(--gold-600)'}}>gap</em>.
+      </motion.h2>
+    </div>
+  );
+}
+
+function GapPanel({s, active}){
+  return (
+    <div style={{minHeight:'100vh', display:'flex', flexDirection:'column', justifyContent:'center'}}>
+      <motion.div
+        animate={{opacity: active ? 1 : 0.28, filter: active ? 'blur(0px)' : 'blur(0.6px)', x: active ? 0 : -4}}
+        transition={{duration:.6, ease:[.22,.61,.36,1]}}
+        style={{maxWidth:480}}>
+        <div style={{display:'flex', alignItems:'center', gap:14, marginBottom:22}}>
+          <span className="serif" style={{fontSize:34, color:'var(--gold-600)', fontWeight:500, lineHeight:1}}>{s.n}</span>
+          <span style={{fontSize:11, letterSpacing:'0.28em', textTransform:'uppercase', color:'var(--ink-60)'}}>{s.kicker}</span>
+        </div>
+        <h3 className="serif" style={{margin:0, fontSize:42, lineHeight:1.05, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, textWrap:'pretty'}}>{s.title}</h3>
+        <p style={{margin:'18px 0 0', fontSize:19, lineHeight:1.5, color:'var(--forest-700)', fontWeight:500, textWrap:'pretty'}}>{s.lead}</p>
+        {s.body && <p style={{margin:'14px 0 0', fontSize:15.5, lineHeight:1.6, color:'var(--ink-60)', textWrap:'pretty'}}>{s.body}</p>}
+        {s.list && (
+          <ul style={{margin:'22px 0 0', padding:0, listStyle:'none', display:'flex', flexDirection:'column', gap:12}}>
+            {s.list.map((li,k)=>(
+              <li key={k} style={{display:'flex', alignItems:'center', gap:14, fontSize:15.5, color:'var(--charcoal)'}}>
+                <span style={{width:7, height:7, borderRadius:'50%', background: s.reveal||s.n==='03' ? 'var(--forest-600)' : 'var(--gold-500)', flexShrink:0}}/>
+                <span style={{textTransform: s.n==='03' ? 'capitalize':'none'}}>{li}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </motion.div>
+    </div>
+  );
+}
+
+/* The sticky visual — abstract states that resolve into the product */
+function GapVisual({step}){
+  return (
+    <div style={{position:'relative', width:520, height:520, display:'grid', placeItems:'center'}}>
+      {/* ambient plate */}
+      <div style={{position:'absolute', width:460, height:460, borderRadius:'50%',
+        background:'radial-gradient(closest-side, #FBF6EC, #F0E6CC 72%, #E5D6B0)',
+        boxShadow:'0 50px 100px -50px rgba(82,67,30,0.4), inset 0 0 0 1px rgba(156,122,44,0.18)'}}/>
+      <div style={{position:'absolute', width:520, height:520, borderRadius:'50%', border:'1px dashed rgba(156,122,44,0.32)'}}/>
+
+      {/* STEP 0 — one familiar circle */}
+      <AnimatePresence>
+      {step===0 && (
+        <motion.div key="s0" initial={{opacity:0, scale:.85}} animate={{opacity:1, scale:1}} exit={{opacity:0, scale:.9}}
+          transition={{duration:.7, ease:[.22,.61,.36,1]}}
+          style={{position:'absolute', display:'grid', placeItems:'center'}}>
+          <motion.img src="assets/regular-roti.png" alt="A stack of everyday wheat rotis with a sack of grain" loading="lazy"
+            animate={{y:[0,-12,0], rotate:[0,-1.2,0]}}
+            transition={{duration:7, repeat:Infinity, ease:'easeInOut'}}
+            style={{width:400, height:400, objectFit:'contain',
+              filter:'drop-shadow(0 34px 46px rgba(82,67,30,0.34))'}}/>
+          <span className="mono" style={{position:'absolute', bottom:-40, fontSize:11, letterSpacing:'0.22em', textTransform:'uppercase', color:'var(--ink-60)'}}>the everyday default</span>
+        </motion.div>
+      )}
+      </AnimatePresence>
+
+      {/* STEP 1 — specialty alternatives (real photo) */}
+      <AnimatePresence>
+      {step===1 && (
+        <motion.div key="s1" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
+          transition={{duration:.6}} style={{position:'absolute', inset:0, display:'grid', placeItems:'center'}}>
+          <motion.img src="assets/gap-alternatives.png" alt="An assortment of specialty flours and grains"
+            initial={{opacity:0, scale:.9, y:18}} animate={{opacity:1, scale:1, y:[0,-10,0]}}
+            transition={{opacity:{duration:.7}, scale:{duration:.7, ease:[.22,.61,.36,1]}, y:{duration:7, repeat:Infinity, ease:'easeInOut'}}}
+            style={{width:440, height:440, objectFit:'contain', filter:'drop-shadow(0 34px 46px rgba(82,67,30,0.32))'}}/>
+          {[['texture',-210,-20],['unfamiliar cooking',165,-110]].map((t,i)=>(
+            <motion.span key={t[0]} className="mono"
+              initial={{opacity:0, y:8}} animate={{opacity:1, y:0}} transition={{delay:.5+i*0.15, duration:.5}}
+              style={{position:'absolute', left:'50%', top:'50%', transform:`translate(calc(-50% + ${t[1]}px), ${t[2]}px)`,
+                padding:'8px 14px', borderRadius:999, background:'rgba(251,246,236,0.98)',
+                border:'1px solid rgba(156,122,44,0.35)', boxShadow:'0 14px 30px -14px rgba(82,67,30,0.55)',
+                fontSize:10, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--forest-700)', fontWeight:600, whiteSpace:'nowrap'}}>{t[0]}</motion.span>
+          ))}
+          <span className="mono" style={{position:'absolute', left:'50%', bottom:-30, transform:'translateX(-50%)', fontSize:11, letterSpacing:'0.22em', textTransform:'uppercase', color:'var(--ink-60)'}}>fragmented trade-offs</span>
+        </motion.div>
+      )}
+      </AnimatePresence>
+
+      {/* STEP 2 — the missing middle (soft torn roti) */}
+      <AnimatePresence>
+      {step===2 && (
+        <motion.div key="s2" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
+          transition={{duration:.6}} style={{position:'absolute', inset:0, display:'grid', placeItems:'center'}}>
+          <motion.div initial={{opacity:0, scale:.8}} animate={{opacity:1, scale:1}} transition={{duration:.9}}
+            style={{position:'absolute', width:430, height:430, borderRadius:'50%',
+              background:'radial-gradient(closest-side, rgba(201,168,91,0.30), transparent 70%)'}}/>
+          <motion.img src="assets/gap-tear.png" alt="Hands tearing a soft roti to reveal its pliable interior"
+            initial={{opacity:0, scale:.9}} animate={{opacity:1, scale:1, y:[0,-9,0]}}
+            transition={{opacity:{duration:.7}, scale:{duration:.7, ease:[.22,.61,.36,1]}, y:{duration:6.5, repeat:Infinity, ease:'easeInOut'}}}
+            style={{position:'relative', zIndex:2, width:450, height:450, objectFit:'contain', filter:'drop-shadow(0 34px 46px rgba(82,67,30,0.34))'}}/>
+          {['Familiarity|0|-190','Usability|-155|158','Nutrition|155|158'].map((t,i)=>{
+            const [l,lx,ly]=t.split('|');
+            return (
+              <motion.span key={i} className="mono"
+                initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.6+i*0.12}}
+                style={{position:'absolute', left:'50%', top:'50%', transform:`translate(calc(-50% + ${lx}px), ${ly}px)`,
+                  fontSize:10.5, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--forest-700)', whiteSpace:'nowrap'}}>{l}</motion.span>
+            );
+          })}
+          <span className="mono" style={{position:'absolute', left:'50%', bottom:-30, transform:'translateX(-50%)', fontSize:11, letterSpacing:'0.22em', textTransform:'uppercase', color:'var(--ink-60)'}}>soft · usable · nourishing</span>
+        </motion.div>
+      )}
+      </AnimatePresence>
+
+      {/* STEP 3 — product silhouette reveal */}
+      <AnimatePresence>
+      {step===3 && (
+        <motion.div key="s3" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
+          transition={{duration:.6}} style={{position:'absolute', inset:0, display:'grid', placeItems:'center'}}>
+          {/* spotlight */}
+          <motion.div
+            initial={{opacity:0, scale:.8}} animate={{opacity:[0.9,1,0.9], scale:[1,1.07,1]}}
+            transition={{opacity:{duration:5, repeat:Infinity, ease:'easeInOut'}, scale:{duration:5, repeat:Infinity, ease:'easeInOut'}}}
+            style={{position:'absolute', width:460, height:460, borderRadius:'50%',
+              background:'radial-gradient(closest-side, rgba(201,168,91,0.5), rgba(201,168,91,0) 70%)'}}/>
+          <motion.div
+            animate={{y:[0,-11,0]}} transition={{duration:6.5, repeat:Infinity, ease:'easeInOut'}}
+            style={{position:'relative', zIndex:2, width:460, height:460, display:'grid', placeItems:'center',
+              filter:'drop-shadow(0 46px 50px rgba(17,38,30,0.45))'}}>
+            {/* before — the everyday roti dissolves */}
+            <motion.img src="assets/regular-roti.png" alt=""
+              initial={{opacity:0, scale:.92}}
+              animate={{opacity:[0,1,1,0], scale:[.92,1,1,1.14]}}
+              transition={{duration:1.9, times:[0,0.16,0.46,0.82], ease:'easeInOut'}}
+              style={{position:'absolute', width:420, height:420, objectFit:'contain'}}/>
+            {/* after — the Balanced Platter roti resolves */}
+            <motion.img src="assets/bp-roti-transparent.png" alt="Balanced Platter Sugar Control Atta roti"
+              initial={{opacity:0, scale:.86}}
+              animate={{opacity:[0,0,1], scale:[.86,.93,1]}}
+              transition={{duration:1.7, delay:.8, times:[0,0.22,1], ease:[.22,.61,.36,1]}}
+              style={{position:'absolute', width:440, height:440, objectFit:'contain'}}/>
+          </motion.div>
+        </motion.div>
+      )}
+      </AnimatePresence>
+
+      {/* progress pips */}
+      <div style={{position:'absolute', right:-8, top:'50%', transform:'translateY(-50%)', display:'flex', flexDirection:'column', gap:10}}>
+        {GAP_STEPS.map((_,i)=>(
+          <motion.span key={i} animate={{height: step===i?28:8, background: step===i?'var(--forest-700)':'rgba(31,29,24,0.18)'}}
+            transition={{duration:.4}} style={{width:4, borderRadius:4}}/>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SECTION 4 — PRODUCT REVEAL
+ * ---------------------------------------------------------------------- */
+function ProductReveal(){
+  const reduced = useReducedMotion();
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-20% 0px'});
+  const { scrollYProgress } = useScroll({ target: ref, offset:['start end','end start'] });
+  const packY  = useTransform(scrollYProgress, [0,1], [70,-70]);
+  const haloY  = useTransform(scrollYProgress, [0,1], [40,-40]);
+  const glowOp = useTransform(scrollYProgress, [0,0.5,1], [0.3,1,0.5]);
+
+  // whole-screen cursor-driven parallax tilt on the pack
+  const { rotX, rotY, tiltX } = usePointerTilt({ry:16, rx:11, tx:30});
+
+  const badges = [
+    {t:'LOW GI', s:'Slow release', pos:{top:60, left:-30}, d:.3},
+    {t:'100% NATURAL', s:'No preservatives', pos:{top:200, right:-50}, d:.45},
+    {t:'EVERYDAY USABILITY', s:'Soft, familiar rotis', pos:{bottom:150, left:-60}, d:.6},
+    {t:'FOUNDER TESTED', s:'Lived experience', pos:{bottom:40, right:-20}, d:.75},
+  ];
+  const band = useRef(null);
+  const bandInView = useInView(band, {once:true, margin:'-30% 0px'});
+  const stats = [
+    {to:428, dec:0, u:'', label:'Calories', sub:'kcal · per 100 g'},
+    {to:38, dec:0, u:'g', label:'Protein', sub:'76% DV'},
+    {to:18, dec:0, u:'g', label:'Dietary Fibre', sub:'64% DV'},
+    {qual:'Low', u:' GI', label:'Glycemic Index', sub:'slow release'},
+  ];
+
+  return (
+    <section id="solution" ref={ref} data-screen-label="04 Solution"
+      style={{position:'relative', padding:'120px 48px 110px', overflow:'hidden',
+        background:'linear-gradient(180deg, #15311F 0%, #11261E 55%, #11261E 100%)'}}>
+      {/* atmospheric spotlight */}
+      <motion.div style={{opacity:glowOp, position:'absolute', top:'42%', left:'50%', transform:'translate(-50%,-50%)',
+        width:900, height:900, borderRadius:'50%',
+        background:'radial-gradient(closest-side, rgba(201,168,91,0.22), rgba(201,168,91,0) 68%)', pointerEvents:'none'}}/>
+      {/* fine grid lines */}
+      <div style={{position:'absolute', inset:0, opacity:.5, pointerEvents:'none',
+        backgroundImage:'linear-gradient(rgba(201,168,91,0.06) 1px, transparent 1px)', backgroundSize:'100% 80px'}}/>
+
+      <div style={{position:'relative', maxWidth:1280, margin:'0 auto'}}>
+        {/* heading */}
+        <div style={{textAlign:'center', maxWidth:780, margin:'0 auto 40px'}}>
+          <motion.div initial={{opacity:0,y:18}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.8}}
+            style={{display:'inline-flex',alignItems:'center', gap:12, marginBottom:24}}>
+            <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--gold-400)', fontWeight:500}}>§ 03</span>
+            <span style={{width:48, height:1, background:'var(--gold-400)', opacity:.6}}/>
+            <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'rgba(246,239,227,0.65)'}}>The Solution</span>
+          </motion.div>
+          <motion.h2 className="serif"
+            initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, delay:.1, ease:[.22,.61,.36,1]}}
+            style={{margin:0, fontSize:58, lineHeight:1.05, letterSpacing:'-0.02em', color:'var(--cream-soft)', fontWeight:400, textWrap:'pretty'}}>
+            Meet Balanced Platter<br/><em style={{fontStyle:'italic', color:'var(--gold-400)'}}>Sugar Control Atta.</em>
+          </motion.h2>
+          <motion.p
+            initial={{opacity:0,y:18}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, delay:.2}}
+            style={{margin:'22px auto 0', maxWidth:520, fontSize:17, lineHeight:1.55, color:'rgba(246,239,227,0.7)', textWrap:'pretty'}}>
+            Designed from lived experience — for people seeking smarter everyday food choices, without giving up the meals they love.
+          </motion.p>
+        </div>
+
+        {/* stage */}
+        <div style={{position:'relative', height:560, display:'grid', placeItems:'center', perspective:1200}}>
+          {/* halo */}
+          <motion.div style={{y:haloY, position:'absolute', width:520, height:520, borderRadius:'50%',
+            background:'radial-gradient(closest-side, rgba(201,168,91,0.28), transparent 70%)'}}/>
+          {/* pedestal ring */}
+          <motion.div
+            initial={{opacity:0, scale:.85}} animate={inView?{opacity:1, scale:1}:{}} transition={{duration:1.2, ease:[.22,.61,.36,1]}}
+            style={{position:'absolute', bottom:60, width:440, height:120, borderRadius:'50%',
+              border:'1px solid rgba(201,168,91,0.3)',
+              background:'radial-gradient(closest-side, rgba(201,168,91,0.12), transparent 70%)'}}/>
+          {/* rotating tagline ring */}
+          <motion.svg animate={reduced ? {} : {rotate:360}} transition={{duration:80, repeat:Infinity, ease:'linear'}}
+            viewBox="0 0 700 700" width="660" height="660" style={{position:'absolute', opacity:.6}}>
+            <defs><path id="prRing" d="M 350,350 m -290,0 a 290,290 0 1,1 580,0 a 290,290 0 1,1 -580,0"/></defs>
+            <text fill="rgba(201,168,91,0.85)" fontFamily="'Hanken Grotesk'" fontSize="11" letterSpacing="6">
+              <textPath href="#prRing">  •  STONE GROUND  •  WHOLE-GRAIN BLEND  •  LOW GLYCEMIC INDEX  •  EASY TO MAKE ROTIS  •  NO PRESERVATIVES  •  </textPath>
+            </text>
+          </motion.svg>
+
+          {/* product */}
+          <motion.div
+            animate={reduced ? {} : {y:[0,-12,0]}} transition={{duration:7, repeat:Infinity, ease:'easeInOut'}}
+            whileHover={{scale:1.025}}
+            style={{position:'relative', zIndex:3, display:'grid', placeItems:'center', willChange:'transform'}}>
+            <motion.img src="assets/product-pack.png" alt="Balanced Platter Sugar Control Atta"
+              initial={{opacity:0, y:60, scale:.92}} animate={inView?{opacity:1, y:0, scale:1}:{}}
+              transition={{duration:1.2, delay:.2, ease:[.22,.61,.36,1]}}
+              style={{height:500, y:packY, x:tiltX, rotateX:rotX, rotateY:rotY, transformPerspective:1200,
+                filter:'drop-shadow(0 60px 70px rgba(0,0,0,0.55)) drop-shadow(0 16px 20px rgba(0,0,0,0.35))'}}/>
+          </motion.div>
+
+          {/* floating badges */}
+          {badges.map((b,i)=>(
+            <motion.div key={b.t}
+              initial={{opacity:0, scale:.9}} animate={inView?{opacity:1, scale:1, y: reduced ? 0 : [0,-5,0]}:{}}
+              transition={{opacity:{duration:.8, delay:b.d}, scale:{duration:.8, delay:b.d, ease:[.22,.61,.36,1]}, y:{duration:5.5+i*0.6, repeat:Infinity, ease:'easeInOut', delay:b.d}}}
+              whileHover={{scale:1.05}}
+              style={{position:'absolute', zIndex:4, ...b.pos,
+                display:'flex', alignItems:'center', gap:12,
+                padding:'12px 18px 12px 14px', borderRadius:999,
+                background:'rgba(251,246,236,0.07)', backdropFilter:'blur(10px)', WebkitBackdropFilter:'blur(10px)',
+                border:'1px solid rgba(201,168,91,0.35)',
+                boxShadow:'0 18px 40px -22px rgba(0,0,0,0.6)'}}>
+              <span style={{width:30, height:30, borderRadius:'50%',
+                background:'linear-gradient(135deg, var(--gold-400), var(--gold-600))',
+                display:'grid', placeItems:'center'}}>
+                <span style={{width:8,height:8,borderRadius:'50%',background:'var(--forest-900)'}}/>
+              </span>
+              <div style={{display:'flex', flexDirection:'column', lineHeight:1.2}}>
+                <span style={{fontSize:12, fontWeight:600, letterSpacing:'0.12em', color:'var(--cream-soft)'}}>{b.t}</span>
+                <span style={{fontSize:10.5, color:'rgba(246,239,227,0.6)'}}>{b.s}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ===== merged: nutrition + process ===== */}
+        <div ref={band} style={{position:'relative', marginTop:30, paddingTop:46, borderTop:'1px solid rgba(201,168,91,0.2)'}}>
+          <div className="mono" style={{textAlign:'center', fontSize:11.5, letterSpacing:'0.22em', textTransform:'uppercase', color:'var(--gold-400)', marginBottom:26}}>Nutrition · per 100 g</div>
+          <div style={{display:'flex', alignItems:'stretch', justifyContent:'center', flexWrap:'wrap'}}>
+            {stats.map((h,i)=>(
+              <motion.div key={h.label}
+                initial={{opacity:0, y:18}} animate={bandInView?{opacity:1, y:0}:{}} transition={{duration:.7, delay:.15+i*0.1, ease:[.22,.61,.36,1]}}
+                style={{flex:'1 1 0', minWidth:170, textAlign:'center', padding:'0 26px',
+                  borderRight: i<stats.length-1 ? '1px solid rgba(201,168,91,0.18)' : 'none'}}>
+                <div className="serif" style={{fontSize:48, lineHeight:0.95, color:'var(--gold-400)', fontWeight:400, letterSpacing:'-0.02em'}}>
+                  {h.qual ? <span>{h.qual}<span style={{fontSize:22}}>{h.u}</span></span>
+                          : <span><Counter to={h.to} decimals={h.dec} duration={1.8} inView={bandInView}/><span style={{fontSize:22}}>{h.u}</span></span>}
+                </div>
+                <div style={{marginTop:9, fontSize:13.5, fontWeight:600, color:'var(--cream-soft)'}}>{h.label}</div>
+                <div style={{marginTop:4, fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'rgba(201,168,91,0.9)'}}>{h.sub}</div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mono" style={{textAlign:'center', fontSize:11.5, letterSpacing:'0.22em', textTransform:'uppercase', color:'var(--gold-400)', margin:'56px 0 26px'}}>How it's built</div>
+          <div style={{display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:18}}>
+            {FLOW.map((f,i)=>(
+              <motion.div key={f.n}
+                initial={{opacity:0, y:18}} animate={bandInView?{opacity:1, y:0}:{}} transition={{duration:.7, delay:.35+i*0.12, ease:[.22,.61,.36,1]}}
+                whileHover={{y:-5, boxShadow:'0 26px 50px -30px rgba(0,0,0,0.55)', borderColor:'rgba(201,168,91,0.4)'}}
+                style={{padding:'22px 22px', borderRadius:14, background:'rgba(251,246,236,0.05)',
+                  border:'1px solid rgba(201,168,91,0.18)'}}>
+                <span className="mono" style={{fontSize:11, color:'var(--gold-400)', letterSpacing:'0.1em'}}>{f.n}</span>
+                <div className="serif" style={{marginTop:8, fontSize:19, color:'var(--cream-soft)', fontWeight:500, letterSpacing:'-0.01em'}}>{f.t}</div>
+                <div style={{marginTop:7, fontSize:13, lineHeight:1.45, color:'rgba(246,239,227,0.62)', textWrap:'pretty'}}>{f.d}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SECTION 4.4 — AUDIENCE & MARKET
+ * ---------------------------------------------------------------------- */
+const AUDIENCE = [
+  {icon:'pulse',  t:'People managing Type 2 diabetes', d:'Everyday food choices that support smarter blood sugar management.'},
+  {icon:'leaf',   t:'Prediabetic & health-conscious adults', d:'Making daily nutrition more thoughtful, before larger issues develop.'},
+  {icon:'family', t:'Families & caregivers', d:'Cooking for loved ones who need practical, familiar, conscious options.'},
+];
+
+function AudIcon({type, size=22}){
+  const s='var(--forest-700)';
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke={s} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      {type==='pulse'  && <path d="M2.5 12h4l2-5 3.5 10 2.5-7 1.5 2H21.5"/>}
+      {type==='leaf'   && <g><path d="M5 19c0-7 6-13 14-13 0 7-6 13-14 13z"/><path d="M5.5 18.5c3-4 6.5-6.5 10.5-8.5"/></g>}
+      {type==='family' && <g><circle cx="8" cy="8" r="2.6"/><circle cx="16.2" cy="9" r="2.2"/><path d="M3.5 19c0-3 2-5 4.5-5s4.5 2 4.5 5"/><path d="M13.6 19c.2-2.3 1.7-3.9 3.4-3.9 1.7 0 3.2 1.5 3.5 3.9"/></g>}
+    </svg>
+  );
+}
+
+function MarketTile({big, suffix, decimals, sub, inView, delay, count}){
+  return (
+    <motion.div
+      initial={{opacity:0, y:24}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:.8, delay, ease:[.22,.61,.36,1]}}
+      whileHover={{y:-5, boxShadow:'0 32px 56px -34px rgba(82,67,30,0.5)'}}
+      style={{padding:'28px 26px', borderRadius:18, background:'var(--cream-soft)',
+        border:'1px solid rgba(156,122,44,0.18)', boxShadow:'0 22px 46px -36px rgba(82,67,30,0.45)', cursor:'default'}}>
+      <div className="serif" style={{fontSize: count ? 52 : 38, lineHeight:0.95, color:'var(--forest-900)', fontWeight: count ? 400 : 500, letterSpacing:'-0.03em'}}>
+        {count ? <Counter to={big} suffix={suffix} decimals={decimals||0} duration={2.1} inView={inView}/> : <span>{big}<span style={{color:'var(--gold-600)'}}>{suffix}</span></span>}
+      </div>
+      <div style={{marginTop:12, fontSize:13.5, lineHeight:1.45, color:'var(--ink-60)', textWrap:'pretty'}}>{sub}</div>
+    </motion.div>
+  );
+}
+
+function AudienceMarket(){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-12% 0px'});
+  return (
+    <section id="audience" ref={ref} data-screen-label="05 Audience & Market"
+      style={{position:'relative', padding:'110px 48px 120px', overflow:'hidden'}}>
+      <div style={{position:'absolute', inset:0,
+        background:'linear-gradient(180deg, #EFE6D2 0%, #E8DEC8 55%, #E6D9BD 100%)', borderRadius:'40px 40px 0 0'}}/>
+      <SectionWatermark n="04"/>
+      <div style={{position:'relative', zIndex:1, maxWidth:1280, margin:'0 auto'}}>
+
+        {/* header */}
+        <div style={{display:'grid', gridTemplateColumns:'auto 1fr', gap:48, alignItems:'end', marginBottom:72}}>
+          <motion.div initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, ease:[.22,.61,.36,1]}}>
+            <div style={{display:'flex',alignItems:'center', gap:12, marginBottom:18}}>
+              <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--gold-600)', fontWeight:500}}>§ 04</span>
+              <span style={{width:48, height:1, background:'var(--gold-600)', opacity:.6}}/>
+              <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--ink-60)'}}>Audience & Market</span>
+            </div>
+            <h2 className="serif" style={{margin:0, fontSize:60, lineHeight:1.03, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, maxWidth:760, textWrap:'pretty'}}>
+              Made for an <InkUnderline>everyday</InkUnderline> need — at a meaningful scale.
+            </h2>
+          </motion.div>
+          <motion.p
+            initial={{opacity:0, y:18}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:.9, delay:.15}}
+            style={{margin:0, maxWidth:360, marginLeft:'auto', fontSize:16, lineHeight:1.6, color:'var(--ink-60)', textWrap:'pretty'}}>
+            Built for the people who face this choice
+            <span style={{color:'var(--forest-700)', fontWeight:500}}> at every meal, every day.</span>
+          </motion.p>
+        </div>
+
+        {/* two columns */}
+        <div style={{display:'grid', gridTemplateColumns:'1.05fr 0.95fr', gap:60, alignItems:'start'}}>
+
+          {/* LEFT — Designed For */}
+          <div>
+            <div style={{display:'flex', alignItems:'baseline', gap:14, marginBottom:24}}>
+              <span className="serif" style={{fontSize:26, color:'var(--forest-900)', fontWeight:500}}>Designed for</span>
+              <span style={{flex:1, height:1, background:'rgba(156,122,44,0.28)'}}/>
+            </div>
+            <div style={{display:'flex', flexDirection:'column', gap:16}}>
+              {AUDIENCE.map((c,i)=>(
+                <motion.div key={c.t}
+                  initial={{opacity:0, y:24}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:.8, delay:.2+i*0.12, ease:[.22,.61,.36,1]}}
+                  whileHover={{y:-5, boxShadow:'0 34px 58px -34px rgba(82,67,30,0.5)'}}
+                  style={{display:'flex', alignItems:'flex-start', gap:22, padding:'27px 28px', borderRadius:18,
+                    background:'var(--cream-soft)', border:'1px solid rgba(156,122,44,0.2)',
+                    boxShadow:'0 22px 44px -36px rgba(82,67,30,0.42)', cursor:'default'}}>
+                  <span style={{flexShrink:0, width:60, height:60, borderRadius:'50%', display:'grid', placeItems:'center',
+                    background:'radial-gradient(closest-side, rgba(201,168,91,0.26), rgba(201,168,91,0.08))',
+                    border:'1px solid rgba(156,122,44,0.32)'}}>
+                    <AudIcon type={c.icon} size={28}/>
+                  </span>
+                  <div>
+                    <div className="serif" style={{fontSize:24, lineHeight:1.18, color:'var(--forest-900)', fontWeight:600, letterSpacing:'-0.01em'}}>{c.t}</div>
+                    <div style={{marginTop:8, fontSize:14.5, lineHeight:1.5, color:'var(--ink-60)', textWrap:'pretty'}}>{c.d}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT — Why the market matters */}
+          <div>
+            <div style={{display:'flex', alignItems:'baseline', gap:14, marginBottom:24}}>
+              <span className="serif" style={{fontSize:26, color:'var(--forest-900)', fontWeight:500}}>Why the market matters</span>
+              <span style={{flex:1, height:1, background:'rgba(156,122,44,0.28)'}}/>
+            </div>
+            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:16}}>
+              <MarketTile big={101} suffix="M+" sub="Indians living with diabetes" count inView={inView} delay={.25}/>
+              <MarketTile big={136} suffix="M+" sub="Estimated prediabetes burden" count inView={inView} delay={.35}/>
+              <MarketTile big="Daily Staple" suffix="" sub="Wheat-based meals remain part of millions of Indian households." inView={inView} delay={.45}/>
+              <MarketTile big="Multiple" suffix="" sub="Daily food choices, made every single day." inView={inView} delay={.55}/>
+            </div>
+            <motion.p
+              initial={{opacity:0, y:16}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:.9, delay:.7}}
+              style={{margin:'22px 0 0', padding:'14px 22px', borderRadius:14,
+                background:'rgba(17,38,30,0.94)', color:'var(--cream-soft)',
+                boxShadow:'0 22px 44px -34px rgba(17,38,30,0.45), inset 0 0 0 1px rgba(201,168,91,0.18)',
+                fontSize:14.5, lineHeight:1.45, textWrap:'pretty'}} className="serif">
+              <span style={{fontStyle:'italic'}}>Not a niche problem — a daily household decision for millions.</span>
+            </motion.p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SECTION 4.5 — NUTRITION FACTS
+ * ---------------------------------------------------------------------- */
+const NUTRI_HIGHLIGHTS = [
+  {num:38, dec:0, u:'g', label:'Protein', dv:'76% DV', dvPct:76, note:'per 100 g'},
+  {num:18, dec:0, u:'g', label:'Dietary Fibre', dv:'64% DV', dvPct:64, note:'per 100 g'},
+  {num:5.1, dec:1, u:'g', label:'Natural Sugar', dv:'No added sugar', dvPct:0, note:'per 100 g'},
+  {num:8.6, dec:1, u:'mg', label:'Iron', dv:'48% DV', dvPct:48, note:'per 100 g'},
+];
+const NUTRI_ROWS = [
+  {l:'Total Fat', v:'16 g', dv:'21%', bold:true},
+  {l:'Saturated Fat', v:'1.8 g', dv:'9%', indent:true},
+  {l:'Total Carbohydrate', v:'36 g', dv:'13%', bold:true},
+  {l:'Dietary Fibre', v:'18 g', dv:'64%', indent:true},
+  {l:'Natural Sugar', v:'5.1 g', dv:'', indent:true},
+  {l:'Protein', v:'38 g', dv:'76%', bold:true, hl:true},
+];
+const NUTRI_MICROS = [
+  {l:'Sodium', v:'59 mg', dv:'3%'},
+  {l:'Calcium', v:'192 mg', dv:'15%'},
+  {l:'Iron', v:'8.6 mg', dv:'48%'},
+  {l:'Potassium', v:'623 mg', dv:'13%'},
+  {l:'Vitamin D', v:'0 mcg', dv:'0%'},
+];
+
+function NutritionFacts(){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-12% 0px'});
+  return (
+    <section id="nutrition" ref={ref} data-screen-label="04.5 Nutrition"
+      style={{position:'relative', padding:'120px 48px 130px', background:'var(--cream)'}}>
+      <div style={{maxWidth:1280, margin:'0 auto'}}>
+
+        {/* heading */}
+        <div style={{display:'grid', gridTemplateColumns:'1.1fr 0.9fr', gap:48, alignItems:'end', marginBottom:64}}>
+          <div>
+            <motion.div initial={{opacity:0,y:14}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.8}}
+              style={{display:'flex',alignItems:'center', gap:12, marginBottom:18}}>
+              <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--gold-600)', fontWeight:500}}>Fig. 04 · Nutrition</span>
+              <span style={{width:48, height:1, background:'var(--gold-600)', opacity:.6}}/>
+              <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--ink-60)'}}>Per 100 g</span>
+            </motion.div>
+            <motion.h2 className="serif"
+              initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, ease:[.22,.61,.36,1]}}
+              style={{margin:0, fontSize:60, lineHeight:1.03, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, maxWidth:720, textWrap:'pretty'}}>
+              What's actually <InkUnderline>inside.</InkUnderline>
+            </motion.h2>
+          </div>
+          <motion.p
+            initial={{opacity:0,y:18}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, delay:.15}}
+            style={{margin:0, maxWidth:380, marginLeft:'auto', fontSize:16, lineHeight:1.6, color:'var(--ink-60)', textWrap:'pretty'}}>
+            High protein, high fibre, naturally low in sugar.
+            <span style={{color:'var(--forest-700)', fontWeight:500}}> Nothing added that doesn't belong.</span>
+          </motion.p>
+        </div>
+
+        <div style={{display:'grid', gridTemplateColumns:'1.05fr 0.95fr', gap:56, alignItems:'start'}}>
+
+          {/* LEFT — editorial highlights */}
+          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:20}}>
+            {NUTRI_HIGHLIGHTS.map((h,i)=>(
+              <motion.div key={h.label}
+                initial={{opacity:0, y:26}} animate={inView?{opacity:1, y:0}:{}}
+                transition={{duration:.8, delay:.2 + i*0.1, ease:[.22,.61,.36,1]}}
+                style={{padding:'30px 28px', borderRadius:18,
+                  background:'linear-gradient(180deg, #FBF6EC, #F3EAD3)',
+                  border:'1px solid rgba(156,122,44,0.18)',
+                  boxShadow:'0 24px 50px -36px rgba(82,67,30,0.5)'}}>
+                <div style={{display:'flex', alignItems:'baseline', gap:4}}>
+                  <span className="serif" style={{fontSize:62, lineHeight:0.9, color:'var(--forest-900)', fontWeight:400, letterSpacing:'-0.02em'}}>
+                    <Counter to={h.num} decimals={h.dec} duration={1.8} inView={inView}/>
+                  </span>
+                  <span className="serif" style={{fontSize:26, color:'var(--gold-600)', fontWeight:400}}>{h.u}</span>
+                </div>
+                <div style={{marginTop:16, fontSize:14, fontWeight:600, letterSpacing:'0.02em', color:'var(--forest-700)'}}>{h.label}</div>
+                {h.dvPct>0 ? (
+                  <div style={{marginTop:12, height:5, borderRadius:3, background:'rgba(82,67,30,0.12)', overflow:'hidden'}}>
+                    <motion.div
+                      initial={{width:0}} animate={inView?{width:h.dvPct+'%'}:{}}
+                      transition={{duration:1.3, delay:.4 + i*0.1, ease:[.22,.61,.36,1]}}
+                      style={{height:'100%', borderRadius:3,
+                        background:'linear-gradient(90deg, var(--gold-500), var(--forest-500))'}}/>
+                  </div>
+                ) : (
+                  <div style={{marginTop:12, height:5}}/>
+                )}
+                <div style={{marginTop:8, display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                  <span style={{fontSize:11.5, letterSpacing:'0.16em', textTransform:'uppercase', color:'var(--gold-600)', fontWeight:600}}>{h.dv}</span>
+                  <span style={{fontSize:10.5, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--ink-60)'}}>{h.note}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* RIGHT — nutrition facts label */}
+          <motion.div
+            initial={{opacity:0, y:30}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:.9, delay:.25, ease:[.22,.61,.36,1]}}
+            style={{background:'var(--cream-soft)', border:'2px solid var(--forest-900)', borderRadius:8,
+              padding:'24px 26px 20px', boxShadow:'0 34px 64px -38px rgba(17,38,30,0.45)'}}>
+            <div className="serif" style={{fontSize:38, lineHeight:1, color:'var(--forest-900)', fontWeight:400, letterSpacing:'-0.01em'}}>Nutrition Facts</div>
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:'baseline', marginTop:8, fontSize:13, color:'var(--forest-700)'}}>
+              <span style={{letterSpacing:'0.12em', textTransform:'uppercase', fontWeight:600}}>Serving size</span>
+              <span style={{fontWeight:600}}>100 g</span>
+            </div>
+            <div style={{height:8, background:'var(--forest-900)', margin:'10px 0 0', borderRadius:1}}/>
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:'baseline', padding:'8px 0 6px'}}>
+              <span style={{fontSize:14, fontWeight:700, letterSpacing:'0.04em', color:'var(--forest-900)'}}>Calories</span>
+              <span className="serif" style={{fontSize:40, lineHeight:0.9, color:'var(--forest-900)', fontWeight:400}}>428</span>
+            </div>
+            <div style={{height:4, background:'var(--forest-900)', borderRadius:1}}/>
+            <div style={{textAlign:'right', fontSize:11, fontWeight:700, color:'var(--forest-700)', padding:'7px 0 3px', letterSpacing:'0.02em'}}>% Daily Value*</div>
+
+            {NUTRI_ROWS.map((r)=>(
+              <div key={r.l} style={{display:'flex', justifyContent:'space-between', alignItems:'baseline',
+                padding:'7px 0', borderTop:'1px solid rgba(17,38,30,0.18)',
+                background: r.hl ? 'rgba(201,168,91,0.14)' : 'transparent'}}>
+                <span style={{fontSize:13.5, paddingLeft: r.indent?20:0,
+                  fontWeight: r.bold?700:400, color: r.bold?'var(--forest-900)':'var(--forest-700)'}}>{r.l} <span style={{fontWeight:400}}>{r.v}</span></span>
+                <span style={{fontSize:13.5, fontWeight:700, color:'var(--forest-900)'}}>{r.dv}</span>
+              </div>
+            ))}
+
+            <div style={{height:8, background:'var(--forest-900)', margin:'8px 0 0', borderRadius:1}}/>
+            {NUTRI_MICROS.map((r)=>(
+              <div key={r.l} style={{display:'flex', justifyContent:'space-between', alignItems:'baseline',
+                padding:'6px 0', borderTop:'1px solid rgba(17,38,30,0.18)'}}>
+                <span style={{fontSize:13, color:'var(--forest-700)'}}>{r.l} <span>{r.v}</span></span>
+                <span style={{fontSize:13, fontWeight:600, color:'var(--forest-900)'}}>{r.dv}</span>
+              </div>
+            ))}
+
+            <div style={{height:4, background:'var(--forest-900)', margin:'10px 0 8px', borderRadius:1}}/>
+            <p style={{margin:0, fontSize:10.5, lineHeight:1.5, color:'var(--ink-60)'}}>
+              * Percent Daily Values are based on a 2,000 kcal diet. Values are indicative and may vary by batch.
+            </p>
+          </motion.div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SECTION 5 — HOW IT WORKS
+ * ---------------------------------------------------------------------- */
+const FLOW = [
+  {n:'01', t:'Ingredient Thinking', d:'We start with what goes in — chosen for purpose, not just bulk.'},
+  {n:'02', t:'Nutritional Balance', d:'Protein, fibre and whole grains considered together as one composition.'},
+  {n:'03', t:'Low-GI Approach', d:'A blend oriented toward a slower, steadier everyday experience.'},
+  {n:'04', t:'Everyday Familiarity', d:'Tuned to roll, cook and taste like the rotis your kitchen already knows.'},
+];
+
+const INGREDIENTS = [
+  {t:'Almonds', s:'Healthy fats & protein', shape:'almond'},
+  {t:'Seeds', s:'Flax · sunflower · pumpkin', shape:'seed'},
+  {t:'Fibre-rich Grains', s:'Whole-grain structure', shape:'fibre'},
+  {t:'Functional Nutrition', s:'Purpose-led components', shape:'function'},
+];
+
+function HowItWorks(){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-15% 0px'});
+  const lineRef = useRef(null);
+  const eco = useRef(null);
+  const ecoInView = useInView(eco, {once:true, margin:'-15% 0px'});
+
+  return (
+    <section id="how" ref={ref} data-screen-label="05 How It Works"
+      style={{position:'relative', padding:'150px 48px 110px', background:'var(--cream)', overflow:'hidden'}}>
+      <SectionWatermark n="04"/>
+      <div style={{position:'relative', zIndex:1, maxWidth:1280, margin:'0 auto'}}>
+        {/* heading */}
+        <div style={{display:'grid', gridTemplateColumns:'auto 1fr', gap:48, alignItems:'end', marginBottom:90, maxWidth:1100}}>
+          <div>
+            <SectionTag num="04" label="How It Works" inView={inView}/>
+            <motion.h2 className="serif"
+              initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, ease:[.22,.61,.36,1]}}
+              style={{margin:0, fontSize:58, lineHeight:1.04, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, maxWidth:720, textWrap:'pretty'}}>
+              Thoughtfully designed for<br/>smarter <em style={{fontStyle:'italic', color:'var(--gold-600)'}}>everyday</em> nutrition.
+            </motion.h2>
+          </div>
+          <motion.p
+            initial={{opacity:0,y:18}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, delay:.15}}
+            style={{margin:0, maxWidth:360, marginLeft:'auto', fontSize:16, lineHeight:1.6, color:'var(--ink-60)', textWrap:'pretty'}}>
+            Balanced Platter combines ingredient thinking, nutritional balance and everyday usability — in a format made for familiar cooking habits.
+          </motion.p>
+        </div>
+
+        {/* process flow */}
+        <div style={{position:'relative', display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:24, marginBottom:140}}>
+          {/* connecting line */}
+          <div style={{position:'absolute', top:34, left:'12%', right:'12%', height:1, background:'rgba(156,122,44,0.25)'}}/>
+          <motion.div ref={lineRef}
+            initial={{scaleX:0}} animate={inView?{scaleX:1}:{}} transition={{duration:1.6, delay:.3, ease:[.22,.61,.36,1]}}
+            style={{position:'absolute', top:34, left:'12%', right:'12%', height:2, transformOrigin:'0% 50%',
+              background:'linear-gradient(90deg, var(--forest-600), var(--gold-500))'}}/>
+          {FLOW.map((f,i)=>(
+            <motion.div key={f.n}
+              initial={{opacity:0, y:26}} animate={inView?{opacity:1, y:0}:{}}
+              transition={{duration:.8, delay:.3 + i*0.15, ease:[.22,.61,.36,1]}}
+              style={{position:'relative', textAlign:'center', display:'flex', flexDirection:'column', alignItems:'center'}}>
+              <motion.div
+                initial={{scale:0}} animate={inView?{scale:1}:{}} transition={{duration:.6, delay:.4 + i*0.15, ease:[.22,.61,.36,1]}}
+                style={{width:68, height:68, borderRadius:'50%', background:'var(--cream-soft)',
+                  border:'1px solid rgba(156,122,44,0.4)', display:'grid', placeItems:'center', marginBottom:24,
+                  boxShadow:'0 14px 30px -18px rgba(82,67,30,0.45)', position:'relative', zIndex:2}}>
+                <span className="serif" style={{fontSize:24, color:'var(--forest-700)', fontWeight:500}}>{f.n}</span>
+              </motion.div>
+              <h4 className="serif" style={{margin:0, fontSize:24, color:'var(--forest-900)', fontWeight:500, letterSpacing:'-0.01em'}}>{f.t}</h4>
+              <p style={{margin:'12px auto 0', maxWidth:230, fontSize:14, lineHeight:1.55, color:'var(--ink-60)', textWrap:'pretty'}}>{f.d}</p>
+              {i<FLOW.length-1 && (
+                <motion.span
+                  initial={{opacity:0}} animate={inView?{opacity:1}:{}} transition={{delay:.7+i*0.15}}
+                  style={{position:'absolute', top:26, right:-14, fontSize:18, color:'var(--gold-600)', zIndex:3}}>→</motion.span>
+              )}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ingredient ecosystem */}
+        <div ref={eco} style={{position:'relative'}}>
+          <Particles count={16}/>
+          <div style={{position:'relative', zIndex:1}}>
+          <div style={{display:'flex', alignItems:'center', gap:16, marginBottom:36}}>
+            <span style={{fontSize:11, letterSpacing:'0.28em', textTransform:'uppercase', color:'var(--gold-600)', fontWeight:500}}>The Ecosystem</span>
+            <span style={{flex:1, height:1, background:'rgba(156,122,44,0.25)'}}/>
+            <span style={{fontSize:11, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--ink-60)'}}>What goes into the blend</span>
+          </div>
+          <motion.div
+            initial={{opacity:0, y:24}} animate={ecoInView?{opacity:1, y:0}:{}} transition={{duration:1, ease:[.22,.61,.36,1]}}
+            style={{position:'relative', marginBottom:40, borderRadius:20, overflow:'hidden',
+              border:'1px solid rgba(156,122,44,0.2)', boxShadow:'0 30px 60px -42px rgba(82,67,30,0.45)',
+              background:'linear-gradient(180deg, #FBF6EC, #F3EAD3)'}}>
+            <img src="assets/ingredients-roti.png" alt="A Balanced Platter roti surrounded by almonds, wheat, peanuts and oats" loading="lazy"
+              style={{display:'block', width:'100%', height:'auto', mixBlendMode:'multiply'}}/>
+            <span className="mono" style={{position:'absolute', left:20, bottom:16, fontSize:10.5, letterSpacing:'0.16em',
+              textTransform:'uppercase', color:'var(--gold-600)'}}>One roti · many considered ingredients</span>
+          </motion.div>
+          <div style={{display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:24}}>
+            {INGREDIENTS.map((ing,i)=>(
+              <motion.div key={ing.t}
+                initial={{opacity:0, y:28}} animate={ecoInView?{opacity:1, y:0}:{}}
+                transition={{duration:.8, delay:i*0.12, ease:[.22,.61,.36,1]}}
+                whileHover={{y:-6}}
+                style={{padding:'34px 28px 30px', borderRadius:18, background:'var(--cream-soft)',
+                  border:'1px solid rgba(156,122,44,0.18)', boxShadow:'0 24px 50px -34px rgba(82,67,30,0.45)',
+                  transition:'transform .4s', display:'flex', flexDirection:'column', alignItems:'flex-start'}}>
+                <IngredientGlyph shape={ing.shape}/>
+                <h4 className="serif" style={{margin:'24px 0 0', fontSize:26, color:'var(--forest-900)', fontWeight:500, letterSpacing:'-0.01em'}}>{ing.t}</h4>
+                <p style={{margin:'8px 0 0', fontSize:13.5, lineHeight:1.5, color:'var(--ink-60)'}}>{ing.s}</p>
+                <span className="mono" style={{marginTop:20, fontSize:10.5, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--gold-600)'}}>0{i+1} / 04</span>
+              </motion.div>
+            ))}
+          </div>
+          <motion.p
+            initial={{opacity:0}} animate={ecoInView?{opacity:1}:{}} transition={{duration:.9, delay:.6}}
+            style={{margin:'36px auto 0', maxWidth:620, textAlign:'center', fontSize:13.5, lineHeight:1.6, color:'var(--ink-40)', textWrap:'pretty'}}>
+            A considered blend of everyday whole-food ingredients, brought together for balance and familiar cooking — not a substitute for medical advice.
+          </motion.p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* simple, restrained ingredient glyphs (geometric only) */
+function IngredientGlyph({shape}){
+  const ring = {width:60, height:60, borderRadius:'50%',
+    background:'radial-gradient(closest-side, #FBF6EC, #F0E6CC)',
+    border:'1px solid rgba(156,122,44,0.35)', display:'grid', placeItems:'center',
+    boxShadow:'inset 0 2px 8px rgba(82,67,30,0.12)'};
+  const F='#1B3A2F', G='#9C7A2C';
+  return (
+    <div style={ring}>
+      <svg width="30" height="30" viewBox="0 0 30 30">
+        {shape==='almond' && <ellipse cx="15" cy="15" rx="7" ry="11" fill="none" stroke={F} strokeWidth="1.5" transform="rotate(28 15 15)"/>}
+        {shape==='seed' && <g fill={F}>
+          <ellipse cx="10" cy="12" rx="2.2" ry="4" transform="rotate(-25 10 12)"/>
+          <ellipse cx="19" cy="11" rx="2.2" ry="4" transform="rotate(20 19 11)"/>
+          <ellipse cx="14" cy="20" rx="2.2" ry="4" transform="rotate(-5 14 20)"/>
+        </g>}
+        {shape==='fibre' && <g stroke={F} strokeWidth="1.5" fill="none" strokeLinecap="round">
+          <path d="M7 9 H23"/><path d="M7 15 H23"/><path d="M7 21 H23"/>
+        </g>}
+        {shape==='function' && <g fill={G}>
+          {[8,15,22].flatMap(x=>[8,15,22].map(y=>(<circle key={x+'-'+y} cx={x} cy={y} r="1.8"/>)))}
+        </g>}
+      </svg>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SHARED — premium image placeholder (drop real photography in later)
+ * ---------------------------------------------------------------------- */
+function Photo({src, alt, caption, h=300, radius=16, pos='center', style}){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-10% 0px'});
+  return (
+    <motion.div ref={ref}
+      initial={{opacity:0, scale:1.04}} animate={inView?{opacity:1, scale:1}:{}}
+      transition={{duration:1, ease:[.22,.61,.36,1]}}
+      style={{position:'relative', height:h, borderRadius:radius, overflow:'hidden',
+        border:'1px solid rgba(156,122,44,0.22)', boxShadow:'0 26px 56px -36px rgba(82,67,30,0.5)', ...style}}>
+      <img src={src} alt={alt} loading="lazy"
+        style={{position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:pos}}/>
+      {caption && (
+        <React.Fragment>
+          <div style={{position:'absolute', inset:0, background:'linear-gradient(0deg, rgba(17,38,30,0.55), transparent 45%)', pointerEvents:'none'}}/>
+          <span className="mono" style={{position:'absolute', left:18, bottom:16, fontSize:10.5, letterSpacing:'0.16em',
+            textTransform:'uppercase', color:'rgba(246,239,227,0.92)'}}>{caption}</span>
+        </React.Fragment>
+      )}
+    </motion.div>
+  );
+}
+
+function ImgPlaceholder({label, h=280, radius=16, tone='cream', style}){
+  const stripe = tone==='forest'
+    ? 'repeating-linear-gradient(135deg, rgba(246,239,227,0.07) 0 2px, rgba(246,239,227,0) 2px 12px)'
+    : 'repeating-linear-gradient(135deg, rgba(82,67,30,0.07) 0 2px, rgba(82,67,30,0) 2px 12px)';
+  const bg = tone==='forest'
+    ? 'linear-gradient(135deg, #1B3A2F, #11261E)'
+    : 'linear-gradient(135deg, #F0E6CC, #E5D6B0)';
+  const ink = tone==='forest' ? 'rgba(246,239,227,0.55)' : 'rgba(82,67,30,0.6)';
+  return (
+    <div style={{position:'relative', height:h, borderRadius:radius, overflow:'hidden',
+      background:bg, border:'1px solid rgba(156,122,44,0.22)',
+      boxShadow:'inset 0 2px 14px rgba(82,67,30,0.1)', ...style}}>
+      <div style={{position:'absolute', inset:0, background:stripe}}/>
+      <div style={{position:'absolute', inset:0, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:10}}>
+        <span style={{width:40, height:40, borderRadius:'50%', border:`1px dashed ${ink}`, display:'grid', placeItems:'center'}}>
+          <span style={{width:12, height:12, borderRadius:'50%', border:`1px solid ${ink}`}}/>
+        </span>
+        <span className="mono" style={{fontSize:10.5, letterSpacing:'0.16em', textTransform:'uppercase', color:ink, textAlign:'center', maxWidth:'80%'}}>{label}</span>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SECTION 6 — DAILY LIFE BENEFITS
+ * ---------------------------------------------------------------------- */
+const BENEFITS = [
+  {n:'01', t:'Blood Sugar–Conscious Living', d:'Designed for people who want more thoughtful everyday nutrition choices.', g:'steady'},
+  {n:'02', t:'Familiar Meals, Less Compromise', d:'Enjoy everyday cooking habits without needing a completely different food routine.', g:'overlap'},
+  {n:'03', t:'Everyday Usability', d:'Made for regular use — not occasional experimentation.', g:'repeat'},
+  {n:'04', t:'Family-Friendly Adoption', d:'Simple enough to become part of household routines.', g:'family'},
+  {n:'05', t:'Thoughtfully Formulated', d:'Built around nutritional intent and practical cooking needs.', g:'triad'},
+  {n:'06', t:'Founder-Tested', d:'Developed through years of personal experience and refinement.', g:'ring'},
+];
+
+function Benefits(){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-12% 0px'});
+  const grid = useRef(null);
+  const gridInView = useInView(grid, {once:true, margin:'-10% 0px'});
+  return (
+    <section id="benefits" ref={ref} data-screen-label="06 Daily Life Benefits"
+      style={{position:'relative', padding:'104px 48px 110px', background:'var(--cream)', overflow:'hidden'}}>
+      <SectionWatermark n="05"/>
+      <div style={{position:'relative', zIndex:1, maxWidth:1280, margin:'0 auto'}}>
+        {/* heading */}
+        <div style={{display:'grid', gridTemplateColumns:'1.1fr 0.9fr', gap:48, alignItems:'end', marginBottom:56}}>
+          <div>
+            <SectionTag num="05" label="Daily Life" inView={inView}/>
+            <motion.h2 className="serif"
+              initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, ease:[.22,.61,.36,1]}}
+              style={{margin:0, fontSize:58, lineHeight:1.04, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, maxWidth:760, textWrap:'pretty'}}>
+              Built for real kitchens.<br/>Real meals. <InkUnderline>Real routines.</InkUnderline>
+            </motion.h2>
+          </div>
+          <motion.p
+            initial={{opacity:0,y:18}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, delay:.15}}
+            style={{margin:0, maxWidth:380, marginLeft:'auto', fontSize:16, lineHeight:1.6, color:'var(--ink-60)', textWrap:'pretty'}}>
+            Balanced Platter was designed around a simple idea: better blood sugar choices should fit naturally into everyday life.
+          </motion.p>
+        </div>
+
+        {/* meal imagery band */}
+        <motion.div
+          initial={{opacity:0, y:24}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:1, delay:.2, ease:[.22,.61,.36,1]}}
+          style={{display:'grid', gridTemplateColumns:'2fr 1fr', gap:24, marginBottom:24}}>
+          <Photo src="assets/roti-plate-dal.png" alt="Balanced Platter rotis served with a bowl of dal" caption="The everyday balanced plate" h={320} pos="center"/>
+          <Photo src="assets/roti-pan.png" alt="A Balanced Platter roti cooking on a cast-iron tawa" caption="Made in real kitchens" h={320} pos="center"/>
+        </motion.div>
+
+        {/* benefit grid */}
+        <div ref={grid} style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:24}}>
+          {BENEFITS.map((b,i)=>(
+            <BenefitCard key={b.n} b={b} i={i} inView={gridInView}/>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BenefitCard({b, i, inView}){
+  const [hover, setHover] = useState(false);
+  return (
+    <motion.div
+      initial={{opacity:0, y:28}} animate={inView?{opacity:1, y:0}:{}}
+      transition={{duration:.8, delay:i*0.09, ease:[.22,.61,.36,1]}}
+      onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
+      whileHover={{y:-8}}
+      style={{position:'relative', padding:'34px 30px 32px', borderRadius:18, background:'var(--cream-soft)',
+        border:'1px solid rgba(156,122,44,0.18)', overflow:'hidden',
+        boxShadow: hover ? '0 34px 60px -32px rgba(82,67,30,0.55)' : '0 20px 44px -34px rgba(82,67,30,0.4)',
+        transition:'box-shadow .4s, border-color .4s', borderColor: hover ? 'rgba(156,122,44,0.45)' : 'rgba(156,122,44,0.18)'}}>
+      {/* hover wash */}
+      <motion.div animate={{opacity: hover?1:0}} transition={{duration:.4}}
+        style={{position:'absolute', top:-40, right:-40, width:160, height:160, borderRadius:'50%',
+          background:'radial-gradient(closest-side, rgba(201,168,91,0.22), transparent 70%)', pointerEvents:'none'}}/>
+      <div style={{display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:30}}>
+        <BenefitGlyph shape={b.g} hover={hover}/>
+        <span className="mono" style={{fontSize:11, letterSpacing:'0.2em', color:'var(--gold-600)'}}>{b.n}</span>
+      </div>
+      <h4 className="serif" style={{margin:0, fontSize:25, lineHeight:1.12, color:'var(--forest-900)', fontWeight:500, letterSpacing:'-0.01em', textWrap:'pretty'}}>{b.t}</h4>
+      <p style={{margin:'12px 0 0', fontSize:14.5, lineHeight:1.6, color:'var(--ink-60)', textWrap:'pretty'}}>{b.d}</p>
+      <motion.div animate={{width: hover?'100%':'28px'}} transition={{duration:.5, ease:[.22,.61,.36,1]}}
+        style={{height:2, marginTop:24, background:'linear-gradient(90deg, var(--gold-500), var(--forest-500))', borderRadius:2}}/>
+    </motion.div>
+  );
+}
+
+function BenefitGlyph({shape, hover}){
+  const F='#1B3A2F', G='#9C7A2C';
+  return (
+    <motion.div animate={{scale: hover?1.06:1, rotate: hover?-4:0}} transition={{duration:.5, ease:[.22,.61,.36,1]}}
+      style={{width:60, height:60, borderRadius:'50%',
+        background:'radial-gradient(closest-side, #FBF6EC, #F0E6CC)',
+        border:'1px solid rgba(156,122,44,0.35)', display:'grid', placeItems:'center',
+        boxShadow:'inset 0 2px 8px rgba(82,67,30,0.12)'}}>
+      <svg width="30" height="30" viewBox="0 0 30 30">
+        {shape==='steady' && <g fill="none" stroke={F} strokeWidth="1.6" strokeLinecap="round">
+          <path d="M5 18 Q11 9 15 15 T25 13"/><circle cx="25" cy="13" r="1.6" fill={G} stroke="none"/></g>}
+        {shape==='overlap' && <g fill="none" stroke={F} strokeWidth="1.6">
+          <circle cx="12" cy="15" r="7"/><circle cx="18" cy="15" r="7"/></g>}
+        {shape==='repeat' && <g stroke={F} strokeWidth="1.6" strokeLinecap="round">
+          <path d="M7 10 H23"/><path d="M7 15 H23"/><path d="M7 20 H23"/></g>}
+        {shape==='family' && <g fill="none" stroke={F} strokeWidth="1.6">
+          <circle cx="11" cy="15" r="6"/><circle cx="21" cy="16" r="4"/></g>}
+        {shape==='triad' && <g fill={G}>
+          <circle cx="15" cy="9" r="2"/><circle cx="9" cy="20" r="2"/><circle cx="21" cy="20" r="2"/>
+          <path d="M15 9 L9 20 L21 20 Z" fill="none" stroke={F} strokeWidth="1.2"/></g>}
+        {shape==='ring' && <g fill="none" stroke={F} strokeWidth="1.6">
+          <circle cx="15" cy="15" r="8"/><circle cx="15" cy="15" r="2.2" fill={G} stroke="none"/></g>}
+      </svg>
+    </motion.div>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SECTION 6.5 — EMOTIONAL TRANSITION
+ * ---------------------------------------------------------------------- */
+function EmotionalTransition(){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-30% 0px'});
+  return (
+    <section ref={ref} data-screen-label="06.5 Transition"
+      style={{position:'relative', minHeight:'100vh', display:'grid', placeItems:'center', overflow:'hidden',
+        background:'linear-gradient(180deg, #11261E 0%, #0E2019 100%)'}}>
+      {/* full-bleed lifestyle backdrop — slow ken-burns */}
+      <motion.div aria-hidden="true"
+        initial={{scale:1.2}} animate={inView?{scale:1}:{}} transition={{duration:9, ease:'easeOut'}}
+        style={{position:'absolute', inset:0, zIndex:0,
+          backgroundImage:'url(' + RES('lifestyleFamily','assets/lifestyle-family.png') + ')', backgroundSize:'cover', backgroundPosition:'center 38%'}}/>
+      <div aria-hidden="true" style={{position:'absolute', inset:0, zIndex:0,
+        background:'linear-gradient(180deg, rgba(17,38,30,0.80) 0%, rgba(14,32,25,0.86) 50%, rgba(14,32,25,0.95) 100%)'}}/>
+      {/* soft gold breath */}
+      <motion.div
+        initial={{opacity:0}} animate={inView?{opacity:1}:{}} transition={{duration:2}}
+        style={{position:'absolute', width:1000, height:1000, borderRadius:'50%',
+          background:'radial-gradient(closest-side, rgba(201,168,91,0.12), transparent 68%)'}}/>
+      <div style={{position:'relative', zIndex:1, textAlign:'center', padding:'0 48px'}}>
+        <motion.div
+          initial={{opacity:0, scaleX:0}} animate={inView?{opacity:1, scaleX:1}:{}} transition={{duration:1.2, ease:[.22,.61,.36,1]}}
+          style={{width:56, height:1, background:'var(--gold-400)', margin:'0 auto 40px'}}/>
+        <h2 className="serif" style={{margin:0, fontSize:84, lineHeight:1.06, letterSpacing:'-0.02em', color:'var(--cream-soft)', fontWeight:400}}>
+          <motion.span style={{display:'block'}}
+            initial={{opacity:0, y:30}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:1.4, ease:[.22,.61,.36,1]}}>
+            Not a lab promise.
+          </motion.span>
+          <motion.em style={{display:'block', fontStyle:'italic', color:'var(--gold-400)'}}
+            initial={{opacity:0, y:30}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:1.4, delay:.45, ease:[.22,.61,.36,1]}}>
+            Lived evidence.
+          </motion.em>
+        </h2>
+        <motion.p
+          initial={{opacity:0}} animate={inView?{opacity:1}:{}} transition={{duration:1.6, delay:1.1}}
+          style={{margin:'40px auto 0', maxWidth:440, fontSize:15, lineHeight:1.6, letterSpacing:'0.02em', color:'rgba(246,239,227,0.6)', textWrap:'pretty'}}>
+          Built from personal experience, shaped through years of persistence.
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SECTION 7 — FOUNDER STORY (animated timeline)
+ * ---------------------------------------------------------------------- */
+const MILESTONES = [
+  {y:'Early 2000s', t:'A personal turning point', d:'A Type 2 diabetes diagnosis began a search for better everyday food choices.', note:'“Where do I even begin?”', tags:['question','search']},
+  {y:'Years of Research', t:'Learning the fundamentals', d:'Studying nutrition, ingredients and dietary approaches — one notebook at a time.', note:'fibre · protein · whole grains', tags:['fibre','protein','grain']},
+  {y:'Many Failed Attempts', t:'Trial, error, repeat', d:'Experimenting with formulations and market alternatives that never quite fit daily life.', note:'batch 14 · “too dense”', tags:['batch','texture']},
+  {y:'Breakthrough', t:'The balance, found', d:'A formulation that balanced usability, familiarity and nutritional intent at last.', note:'“finally — it rolls like home.”', tags:['balance']},
+  {y:'Today', t:'Shared, daily', d:'Balanced Platter is used daily by the founder and shared with others seeking similar solutions.', note:'one plate at a time', tags:['daily']},
+];
+
+function FounderStory(){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-12% 0px'});
+  const miles = [
+    {y:'Early 2000s', t:'A personal turning point', d:'A Type 2 diabetes diagnosis began a search for better everyday food.'},
+    {y:'Breakthrough', t:'The balance, found', d:'A blend balancing usability, familiarity and nutritional intent.'},
+    {y:'Today', t:'Shared, daily', d:'Used daily by the founder — and shared with others seeking the same.'},
+  ];
+  return (
+    <section id="story" ref={ref} data-screen-label="08 Founder & Trust"
+      style={{position:'relative', padding:'110px 48px 120px', background:'var(--cream)', overflow:'hidden'}}>
+      <SectionWatermark n="07"/>
+      <div style={{position:'relative', zIndex:1, maxWidth:1180, margin:'0 auto'}}>
+        {/* heading + founder note */}
+        <div style={{display:'grid', gridTemplateColumns:'1.15fr 0.85fr', gap:60, alignItems:'center', marginBottom:56}}>
+          <div>
+            <SectionTag num="07" label="Founder & Trust" inView={inView}/>
+            <motion.h2 className="serif"
+              initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, ease:[.22,.61,.36,1]}}
+              style={{margin:0, fontSize:54, lineHeight:1.05, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, textWrap:'pretty'}}>
+              A two-decade search<br/>for a <InkUnderline>better</InkUnderline> alternative.
+            </motion.h2>
+            <motion.p
+              initial={{opacity:0,y:18}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, delay:.15}}
+              style={{margin:'22px 0 0', maxWidth:540, fontSize:16.5, lineHeight:1.55, color:'var(--ink-60)', textWrap:'pretty'}}>
+              What began as a personal health challenge became a long journey of learning, experimentation and persistence.
+            </motion.p>
+          </div>
+
+          {/* founder's note — editorial pull-quote, no photo */}
+          <motion.div
+            initial={{opacity:0, y:30}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:1, delay:.2, ease:[.22,.61,.36,1]}}
+            style={{position:'relative', borderRadius:22, padding:'40px 38px 36px', overflow:'hidden',
+              background:'linear-gradient(160deg, #1B3A2F 0%, #11261E 78%)',
+              boxShadow:'0 44px 74px -42px rgba(17,38,30,0.6), inset 0 0 0 1px rgba(201,168,91,0.22)'}}>
+            <div style={{position:'absolute', inset:0, pointerEvents:'none',
+              background:'radial-gradient(120% 70% at 80% 0%, rgba(201,168,91,0.16), transparent 60%)'}}/>
+            <span className="mono" style={{position:'relative', fontSize:10.5, letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--gold-400)'}}>From the Founder</span>
+            <p className="serif" style={{position:'relative', margin:'14px 0 0', fontSize:25, lineHeight:1.3, fontStyle:'italic', color:'var(--cream-soft)', fontWeight:400, textWrap:'pretty'}}>
+              I didn't set out to build a product. I set out to find something I could eat every day — and kept going until it existed.
+            </p>
+            <div style={{position:'relative', marginTop:26, display:'flex', alignItems:'center', gap:14}}>
+              <span className="serif" style={{width:38, height:38, borderRadius:'50%', display:'grid', placeItems:'center',
+                background:'linear-gradient(135deg, var(--gold-400), var(--gold-600))', color:'var(--forest-900)', fontWeight:600, fontSize:14}}>BP</span>
+              <div style={{display:'flex', flexDirection:'column'}}>
+                <span style={{fontSize:14, fontWeight:500, color:'var(--cream-soft)'}}>Founder, Balanced Platter</span>
+                <span style={{fontSize:11, letterSpacing:'0.16em', textTransform:'uppercase', color:'rgba(246,239,227,0.55)'}}>Hyderabad · Est. 2026</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* 3 compact milestones */}
+        <div style={{display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:20, marginBottom:40}}>
+          {miles.map((m,i)=>(
+            <motion.div key={m.y}
+              initial={{opacity:0, y:24}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:.8, delay:.2+i*0.12, ease:[.22,.61,.36,1]}}
+              whileHover={{y:-5, boxShadow:'0 34px 58px -34px rgba(82,67,30,0.5)'}}
+              style={{padding:'28px 28px', borderRadius:18, background:'var(--cream-soft)',
+                border:'1px solid rgba(156,122,44,0.18)', boxShadow:'0 22px 44px -36px rgba(82,67,30,0.42)', cursor:'default'}}>
+              <span className="mono" style={{fontSize:11, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--gold-600)', fontWeight:600}}>{m.y}</span>
+              <h3 className="serif" style={{margin:'12px 0 0', fontSize:23, lineHeight:1.15, letterSpacing:'-0.01em', color:'var(--forest-900)', fontWeight:500}}>{m.t}</h3>
+              <p style={{margin:'9px 0 0', fontSize:14, lineHeight:1.5, color:'var(--ink-60)', textWrap:'pretty'}}>{m.d}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* family photo band — lived evidence */}
+        <motion.div
+          initial={{opacity:0, y:30}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:1, delay:.35, ease:[.22,.61,.36,1]}}
+          style={{position:'relative', borderRadius:22, overflow:'hidden', boxShadow:'0 40px 80px -44px rgba(17,38,30,0.55)'}}>
+          <img src="assets/lifestyle-family.png" alt="A family sharing a home-cooked meal" loading="lazy"
+            style={{display:'block', width:'100%', height:300, objectFit:'cover', objectPosition:'center 38%'}}/>
+          <div style={{position:'absolute', inset:0,
+            background:'linear-gradient(90deg, rgba(14,32,25,0.92) 0%, rgba(14,32,25,0.6) 46%, rgba(14,32,25,0.12) 100%)'}}/>
+          <div style={{position:'absolute', left:0, top:0, bottom:0, display:'flex', flexDirection:'column', justifyContent:'center', padding:'0 48px', maxWidth:540}}>
+            <span className="mono" style={{fontSize:10.5, letterSpacing:'0.22em', textTransform:'uppercase', color:'var(--gold-400)', marginBottom:14}}>Trust</span>
+            <h3 className="serif" style={{margin:0, fontSize:40, lineHeight:1.08, letterSpacing:'-0.01em', color:'var(--cream-soft)', fontWeight:400}}>
+              Not a lab promise. <em style={{fontStyle:'italic', color:'var(--gold-400)'}}>Lived evidence.</em>
+            </h3>
+            <p style={{margin:'14px 0 0', fontSize:15, lineHeight:1.55, color:'rgba(246,239,227,0.78)', maxWidth:430, textWrap:'pretty'}}>
+              Built from personal experience — and shared with real families seeking the same everyday balance.
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function TimelineMilestone({m, i, side, last}){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-20% 0px'});
+  const isLeft = side==='left';
+  return (
+    <div ref={ref} style={{position:'relative', display:'grid', gridTemplateColumns:'1fr 1fr', marginBottom: last?0:80, alignItems:'center'}}>
+      {/* node + soft halo */}
+      <motion.div
+        initial={{scale:0, opacity:0}} animate={inView?{scale:1, opacity:1}:{}} transition={{duration:1, delay:.1}}
+        style={{position:'absolute', left:'50%', top:'50%', transform:'translate(-50%,-50%)', zIndex:2,
+          width:64, height:64, borderRadius:'50%', pointerEvents:'none',
+          background:'radial-gradient(closest-side, rgba(201,168,91,0.32), transparent 70%)'}}/>
+      <motion.div
+        initial={{scale:0}} animate={inView?{scale:1}:{}} transition={{duration:.6, ease:[.22,.61,.36,1]}}
+        style={{position:'absolute', left:'50%', top:'50%', transform:'translate(-50%,-50%)', zIndex:3,
+          width:18, height:18, borderRadius:'50%', background: m.y==='Today' ? 'var(--gold-500)':'var(--forest-700)',
+          border:'3px solid var(--cream)', boxShadow:'0 0 0 4px rgba(156,122,44,0.18)'}}>
+        {m.y==='Today' && <motion.span
+          animate={{scale:[1,1.9], opacity:[0.5,0]}} transition={{duration:2.4, repeat:Infinity, ease:'easeOut'}}
+          style={{position:'absolute', inset:-3, borderRadius:'50%', border:'2px solid var(--gold-500)'}}/>}
+      </motion.div>
+
+      {/* content card */}
+      <motion.div
+        initial={{opacity:0, x: isLeft?-40:40, y:10}} animate={inView?{opacity:1, x:0, y:0}:{}}
+        transition={{duration:.9, ease:[.22,.61,.36,1]}}
+        style={{gridColumn: isLeft?1:2, padding: isLeft?'0 56px 0 0':'0 0 0 56px', textAlign: isLeft?'right':'left'}}>
+        <span className="serif" style={{fontSize:22, color:'var(--gold-600)', fontWeight:500, letterSpacing:'-0.01em'}}>{m.y}</span>
+        <h4 className="serif" style={{margin:'6px 0 0', fontSize:30, lineHeight:1.1, color:'var(--forest-900)', fontWeight:500, letterSpacing:'-0.01em', textWrap:'pretty'}}>{m.t}</h4>
+        <p style={{margin:'12px 0 0', fontSize:15, lineHeight:1.6, color:'var(--ink-60)', textWrap:'pretty'}}>{m.d}</p>
+
+        {/* notebook detail card */}
+        <motion.div
+          initial={{opacity:0, rotate: isLeft?2:-2}} animate={inView?{opacity:1, rotate: isLeft?-1.4:1.4}:{}}
+          transition={{duration:.9, delay:.25, ease:[.22,.61,.36,1]}}
+          style={{display:'inline-flex', flexDirection:'column', gap:10, marginTop:20,
+            padding:'16px 20px', borderRadius:6, background:'#FBF6EC',
+            border:'1px solid rgba(156,122,44,0.3)',
+            boxShadow:'0 18px 36px -24px rgba(82,67,30,0.5)',
+            backgroundImage:'repeating-linear-gradient(transparent 0 25px, rgba(156,122,44,0.14) 25px 26px)',
+            textAlign:'left', maxWidth:280, alignSelf: isLeft?'flex-end':'flex-start'}}>
+          <span className="serif" style={{fontStyle:'italic', fontSize:18, color:'var(--forest-700)', lineHeight:1.3}}>{m.note}</span>
+          <div style={{display:'flex', gap:8, flexWrap:'wrap'}}>
+            {m.tags.map((tg,k)=>(
+              <span key={k} className="mono" style={{fontSize:9.5, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--gold-600)',
+                padding:'3px 8px', borderRadius:999, border:'1px solid rgba(156,122,44,0.35)'}}>{tg}</span>
+            ))}
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SECTION 8 — DIFFERENTIATORS  (interactive explorer)
+ * ---------------------------------------------------------------------- */
+const DIFFERENTIATORS = [
+  {n:'01', t:'Built From Lived Experience', d:'Shaped by a founder who needed it first — not by a focus group.', g:'ring'},
+  {n:'02', t:'Designed Around Everyday Use', d:'Made to earn a permanent place in the daily routine, not the back of the shelf.', g:'repeat'},
+  {n:'03', t:'Familiar Cooking Experience', d:'It rolls, cooks and tastes like the rotis your kitchen already knows.', g:'overlap'},
+  {n:'04', t:'Thoughtful Ingredient Selection', d:'Every component chosen for purpose, balance and nutritional intent.', g:'triad'},
+  {n:'05', t:'Long-Term Refinement', d:'Years of quiet iteration distilled into one consistent, dependable blend.', g:'steady'},
+  {n:'06', t:'Purpose-Driven Innovation', d:'Built to solve a real, daily problem — not to chase a passing trend.', g:'family'},
+];
+
+function Differentiators(){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-12% 0px'});
+  const [active, setActive] = useState(0);
+  const a = DIFFERENTIATORS[active];
+  return (
+    <section id="differentiators" ref={ref} data-screen-label="06 Differentiators"
+      style={{position:'relative', padding:'96px 48px 120px', background:'var(--cream)', overflow:'hidden'}}>
+      <SectionWatermark n="05"/>
+      <div style={{position:'relative', zIndex:1, maxWidth:1280, margin:'0 auto'}}>
+        {/* heading */}
+        <div style={{display:'grid', gridTemplateColumns:'1.1fr 0.9fr', gap:48, alignItems:'end', marginBottom:64}}>
+          <div>
+            <SectionTag num="05" label="Differentiators" inView={inView}/>
+            <motion.h2 className="serif"
+              initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, ease:[.22,.61,.36,1]}}
+              style={{margin:0, fontSize:58, lineHeight:1.04, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, maxWidth:720, textWrap:'pretty'}}>
+              More than a flour.<br/>A different way of <InkUnderline>thinking.</InkUnderline>
+            </motion.h2>
+          </div>
+          <motion.p
+            initial={{opacity:0,y:18}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, delay:.15}}
+            style={{margin:0, maxWidth:380, marginLeft:'auto', fontSize:16, lineHeight:1.6, color:'var(--ink-60)', textWrap:'pretty'}}>
+            Balanced Platter was built around one challenge: creating an everyday flour that people would actually want to use consistently.
+          </motion.p>
+        </div>
+
+        {/* explorer */}
+        <motion.div
+          initial={{opacity:0, y:24}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:.9, delay:.2, ease:[.22,.61,.36,1]}}
+          style={{display:'grid', gridTemplateColumns:'1fr 1.05fr', gap:0, borderRadius:22, overflow:'hidden',
+            border:'1px solid rgba(156,122,44,0.2)', boxShadow:'0 40px 80px -50px rgba(82,67,30,0.5)', background:'var(--cream-soft)'}}>
+          {/* list */}
+          <div style={{borderRight:'1px solid rgba(156,122,44,0.16)'}}>
+            {DIFFERENTIATORS.map((it,i)=>(
+              <button key={it.n} aria-pressed={active===i} aria-label={it.t} onMouseEnter={()=>setActive(i)} onFocus={()=>setActive(i)} onClick={()=>setActive(i)}
+                style={{display:'flex', alignItems:'center', gap:20, width:'100%', textAlign:'left', cursor:'pointer',
+                  padding:'26px 34px', background: active===i ? 'rgba(35,73,59,0.06)' : 'transparent',
+                  border:'none', borderBottom: i<DIFFERENTIATORS.length-1 ? '1px solid rgba(156,122,44,0.14)':'none',
+                  transition:'background .35s'}}>
+                <span className="mono" style={{fontSize:12, letterSpacing:'0.18em', color: active===i ? 'var(--gold-600)':'var(--ink-40)', width:24, transition:'color .35s'}}>{it.n}</span>
+                <span className="serif" style={{fontSize:24, letterSpacing:'-0.01em', fontWeight:500,
+                  color: active===i ? 'var(--forest-900)':'var(--ink-60)', flex:1, transition:'color .35s'}}>{it.t}</span>
+                <motion.span animate={{x: active===i?0:-6, opacity: active===i?1:0}} transition={{duration:.35}}
+                  style={{fontSize:18, color:'var(--gold-600)'}}>→</motion.span>
+              </button>
+            ))}
+          </div>
+          {/* display */}
+          <div style={{position:'relative', minHeight:440, padding:'48px 52px', display:'flex', flexDirection:'column', justifyContent:'space-between',
+            background:'linear-gradient(150deg, #FBF6EC, #F1E7CE)', overflow:'hidden'}}>
+            <div style={{position:'absolute', top:-60, right:-60, width:260, height:260, borderRadius:'50%',
+              background:'radial-gradient(closest-side, rgba(201,168,91,0.2), transparent 70%)'}}/>
+            <AnimatePresence mode="wait">
+              <motion.div key={a.n}
+                initial={{opacity:0, y:18}} animate={{opacity:1, y:0}} exit={{opacity:0, y:-12}}
+                transition={{duration:.5, ease:[.22,.61,.36,1]}} style={{position:'relative'}}>
+                <BenefitGlyph shape={a.g} hover={true}/>
+                <div className="serif" style={{fontSize:13, letterSpacing:'0.3em', textTransform:'uppercase', color:'var(--gold-600)', marginTop:36}}>Differentiator {a.n}</div>
+                <h3 className="serif" style={{margin:'10px 0 0', fontSize:44, lineHeight:1.05, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, textWrap:'pretty'}}>{a.t}</h3>
+                <p style={{margin:'20px 0 0', fontSize:17, lineHeight:1.6, color:'var(--ink-60)', maxWidth:420, textWrap:'pretty'}}>{a.d}</p>
+              </motion.div>
+            </AnimatePresence>
+            <div style={{position:'relative', display:'flex', gap:6, marginTop:32}}>
+              {DIFFERENTIATORS.map((_,i)=>(
+                <motion.span key={i} animate={{width: active===i?28:8, background: active===i?'var(--forest-700)':'rgba(31,29,24,0.16)'}}
+                  transition={{duration:.4}} style={{height:4, borderRadius:4, cursor:'pointer'}} onClick={()=>setActive(i)}/>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SECTION 9 — EVIDENCE + MARKET RELEVANCE
+ * ---------------------------------------------------------------------- */
+function Evidence(){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-12% 0px'});
+  return (
+    <section id="evidence" ref={ref} data-screen-label="09 Evidence"
+      style={{position:'relative', padding:'96px 48px 130px', overflow:'hidden'}}>
+      <div style={{position:'absolute', inset:'80px 0 0', borderRadius:'40px 40px 0 0',
+        background:'linear-gradient(180deg, #EFE6D2 0%, #E8DEC8 60%, #E2D5B7 100%)'}}/>
+      <SectionWatermark n="06"/>
+      <div style={{position:'relative', zIndex:1, maxWidth:1280, margin:'0 auto'}}>
+        {/* heading */}
+        <div style={{maxWidth:820, marginBottom:56}}>
+          <SectionTag num="06" label="Evidence & Relevance" inView={inView}/>
+          <motion.h2 className="serif"
+            initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, ease:[.22,.61,.36,1]}}
+            style={{margin:0, fontSize:60, lineHeight:1.03, letterSpacing:'-0.02em', color:'var(--forest-900)', fontWeight:400, textWrap:'pretty'}}>
+            Why this matters <em style={{fontStyle:'italic', color:'var(--gold-600)'}}>now</em>.
+          </motion.h2>
+          <motion.p
+            initial={{opacity:0,y:18}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, delay:.15}}
+            style={{margin:'24px 0 0', maxWidth:560, fontSize:17, lineHeight:1.55, color:'var(--ink-60)', textWrap:'pretty'}}>
+            The challenge is not limited to a few individuals. It reflects a broader shift in how people think about everyday nutrition.
+          </motion.p>
+        </div>
+
+        {/* ZONE 1 — headline stats */}
+        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:0, marginBottom:76,
+          border:'1px solid rgba(156,122,44,0.22)', borderRadius:20, overflow:'hidden', background:'var(--cream-soft)'}}>
+          {[
+            {to:101, suffix:'M+', label:'Indians living with diabetes', src:'ICMR–INDIAB, 2023'},
+            {to:136, suffix:'M+', label:'Estimated prediabetes burden', src:'Lancet Diabetes & Endocrinology'}
+          ].map((s,i)=>(
+            <div key={i} style={{padding:'52px 48px', borderRight: i===0?'1px solid rgba(156,122,44,0.18)':'none'}}>
+              <div className="serif" style={{fontSize:96, lineHeight:0.92, letterSpacing:'-0.04em', color: i===0?'var(--forest-700)':'var(--gold-600)', fontWeight:400}}>
+                <Counter to={s.to} suffix={s.suffix} duration={2.2} inView={inView}/>
+              </div>
+              <div style={{marginTop:14, fontSize:16, fontWeight:500, color:'var(--forest-900)'}}>{s.label}</div>
+              <div style={{marginTop:18, paddingTop:14, borderTop:'1px dashed rgba(156,122,44,0.35)', display:'flex', justifyContent:'space-between'}}>
+                <span style={{fontSize:11, letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--ink-60)'}}>Source</span>
+                <span style={{fontSize:11, color:'var(--ink-60)', fontWeight:500}}>{s.src}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ZONE 2 — daily decisions */}
+        <DailyDecisions inView={inView}/>
+
+        {/* ZONE 3 — nutrition trends */}
+        <NutritionTrends/>
+      </div>
+    </section>
+  );
+}
+
+function DailyDecisions({inView}){
+  const meals = [
+    {x:0.16, t:'Breakfast', s:'Roti · paratha'},
+    {x:0.5,  t:'Lunch',     s:'Rice · roti · dal'},
+    {x:0.84, t:'Dinner',    s:'Roti · sabzi'},
+  ];
+  const W=1000, H=240;
+  const arc = `M40,${H-50} C ${W*0.28},40 ${W*0.72},40 ${W-40},${H-50}`;
+  const px = (f)=> 40 + f*(W-80);
+  const py = (f)=> {
+    // approximate y on the quadratic-ish arc
+    const t=f; const y = (1-t)*(1-t)*(H-50) + 2*(1-t)*t*40 + t*t*(H-50);
+    return y;
+  };
+  return (
+    <div style={{marginBottom:76}}>
+      <div style={{display:'flex', alignItems:'center', gap:16, marginBottom:8}}>
+        <span style={{fontSize:11, letterSpacing:'0.28em', textTransform:'uppercase', color:'var(--gold-600)', fontWeight:500}}>The Daily Rhythm</span>
+        <span style={{flex:1, height:1, background:'rgba(156,122,44,0.25)'}}/>
+      </div>
+      <h3 className="serif" style={{margin:'0 0 8px', fontSize:34, color:'var(--forest-900)', fontWeight:500, letterSpacing:'-0.01em'}}>Food choices happen multiple times, every single day.</h3>
+      <p style={{margin:'0 0 28px', maxWidth:560, fontSize:15, lineHeight:1.6, color:'var(--ink-60)'}}>
+        Managing blood sugar isn't one annual decision — it's a quiet choice repeated at every meal, in every household.
+      </p>
+      <div style={{position:'relative', borderRadius:20, background:'var(--cream-soft)', border:'1px solid rgba(156,122,44,0.2)',
+        boxShadow:'0 30px 60px -42px rgba(82,67,30,0.4)', padding:'20px 24px'}}>
+        <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{display:'block'}}>
+          <defs>
+            <linearGradient id="dayArc" x1="0" x2="1">
+              <stop offset="0" stopColor="#9C7A2C"/><stop offset=".5" stopColor="#23493B"/><stop offset="1" stopColor="#9C7A2C"/>
+            </linearGradient>
+          </defs>
+          {/* baseline */}
+          <line x1="40" x2={W-40} y1={H-50} y2={H-50} stroke="rgba(31,29,24,0.1)" strokeDasharray="2 5"/>
+          {/* arc */}
+          <motion.path d={arc} fill="none" stroke="url(#dayArc)" strokeWidth="2"
+            initial={{pathLength:0}} animate={inView?{pathLength:1}:{}} transition={{duration:1.8, delay:.3, ease:[.22,.61,.36,1]}}/>
+          {/* endpoints labels */}
+          <text x="40" y={H-30} fontSize="11" fill="rgba(31,29,24,0.5)" fontFamily="'Hanken Grotesk'">Morning</text>
+          <text x={W-40} y={H-30} fontSize="11" textAnchor="end" fill="rgba(31,29,24,0.5)" fontFamily="'Hanken Grotesk'">Night</text>
+          {/* meal nodes */}
+          {meals.map((m,i)=>{
+            const cx=px(m.x), cy=py(m.x);
+            return (
+              <g key={m.t}>
+                <motion.line x1={cx} x2={cx} y1={cy} y2={H-50} stroke="rgba(156,122,44,0.4)" strokeDasharray="2 3"
+                  initial={{opacity:0}} animate={inView?{opacity:1}:{}} transition={{delay:1 + i*0.25}}/>
+                <motion.circle cx={cx} cy={cy} r="9" fill="var(--forest-700)" stroke="var(--cream-soft)" strokeWidth="3"
+                  initial={{scale:0}} animate={inView?{scale:1}:{}} transition={{delay:1 + i*0.25, duration:.5, ease:[.22,.61,.36,1]}}/>
+                <motion.g initial={{opacity:0, y:8}} animate={inView?{opacity:1, y:0}:{}} transition={{delay:1.15 + i*0.25, duration:.6}}>
+                  <text x={cx} y={cy-22} textAnchor="middle" fontSize="18" fontFamily="'Cormorant Garamond'" fontWeight="500" fill="#11261E">{m.t}</text>
+                  <text x={cx} y={cy-4-0} textAnchor="middle" fontSize="0" fill="none">.</text>
+                </motion.g>
+                <motion.text x={cx} y={H-66} textAnchor="middle" fontSize="11" fontFamily="'JetBrains Mono', monospace" letterSpacing="1" fill="rgba(31,29,24,0.55)"
+                  initial={{opacity:0}} animate={inView?{opacity:1}:{}} transition={{delay:1.3 + i*0.25}}>{m.s}</motion.text>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function NutritionTrends(){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-15% 0px'});
+  const trends = [
+    {t:'Preventive health awareness', w:0.86},
+    {t:'Functional foods growth', w:0.78},
+    {t:'Personalized nutrition interest', w:0.64},
+    {t:'Smarter everyday eating habits', w:0.72},
+  ];
+  return (
+    <div ref={ref}>
+      <div style={{display:'flex', alignItems:'center', gap:16, marginBottom:36}}>
+        <span style={{fontSize:11, letterSpacing:'0.28em', textTransform:'uppercase', color:'var(--gold-600)', fontWeight:500}}>The Shift Underway</span>
+        <span style={{flex:1, height:1, background:'rgba(156,122,44,0.25)'}}/>
+        <span style={{fontSize:11, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--ink-60)'}}>Where everyday nutrition is heading</span>
+      </div>
+      <div style={{display:'flex', flexDirection:'column', gap:0}}>
+        {trends.map((tr,i)=>(
+          <motion.div key={tr.t}
+            initial={{opacity:0, y:18}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:.7, delay:i*0.1, ease:[.22,.61,.36,1]}}
+            style={{display:'grid', gridTemplateColumns:'320px 1fr auto', gap:28, alignItems:'center',
+              padding:'26px 0', borderTop:'1px solid rgba(156,122,44,0.2)'}}>
+            <div style={{display:'flex', alignItems:'baseline', gap:14}}>
+              <span className="mono" style={{fontSize:11, color:'var(--gold-600)', letterSpacing:'0.12em'}}>0{i+1}</span>
+              <span className="serif" style={{fontSize:24, color:'var(--forest-900)', fontWeight:500, letterSpacing:'-0.01em'}}>{tr.t}</span>
+            </div>
+            <div style={{position:'relative', height:6, borderRadius:6, background:'rgba(31,29,24,0.08)', overflow:'hidden'}}>
+              <motion.div
+                initial={{scaleX:0}} animate={inView?{scaleX:tr.w}:{}} transition={{duration:1.4, delay:.3+i*0.12, ease:[.22,.61,.36,1]}}
+                style={{position:'absolute', inset:0, transformOrigin:'0% 50%', borderRadius:6,
+                  background:'linear-gradient(90deg, var(--forest-600), var(--gold-500))'}}/>
+            </div>
+            <span style={{display:'inline-flex', alignItems:'center', gap:6, fontSize:12, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--forest-600)', fontWeight:600}}>
+              <span style={{fontSize:15}}>↑</span> Rising
+            </span>
+          </motion.div>
+        ))}
+      </div>
+      <p style={{margin:'30px 0 0', maxWidth:620, fontSize:13.5, lineHeight:1.6, color:'var(--ink-60)', textWrap:'pretty'}}>
+        Directional momentum across the wellness category. Bars indicate relative interest, not precise market share.
+      </p>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  SECTION 10 — CTA  (premium finale)
+ * ---------------------------------------------------------------------- */
+const SAMPLE_FORM_URL = "https://forms.gle/MVsFewUiodmnedsV9";
+
+function FinalCTA(){
+  const reduced = useReducedMotion();
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-15% 0px'});
+  const { scrollYProgress } = useScroll({ target: ref, offset:['start end','end start'] });
+  const packY = useTransform(scrollYProgress, [0,1], [60,-60]);
+  const { rotX, rotY, tiltX } = usePointerTilt({ry:16, rx:11, tx:30});
+  const closing = ['Built from curiosity.','Refined through persistence.','Designed for everyday life.'];
+  return (
+    <section id="sample" ref={ref} data-screen-label="09 Sample Pack"
+      style={{position:'relative', overflow:'hidden', padding:'160px 48px 90px',
+        background:'linear-gradient(180deg, #15311F 0%, #11261E 60%, #0E2019 100%)'}}>
+      {/* spotlight */}
+      <motion.div initial={{opacity:0}} animate={inView?{opacity:1}:{}} transition={{duration:1.6}}
+        style={{position:'absolute', top:'30%', right:'8%', width:760, height:760, borderRadius:'50%',
+          background:'radial-gradient(closest-side, rgba(201,168,91,0.2), transparent 68%)', pointerEvents:'none'}}/>
+      <div style={{position:'absolute', inset:0, opacity:.5, pointerEvents:'none',
+        backgroundImage:'linear-gradient(rgba(201,168,91,0.06) 1px, transparent 1px)', backgroundSize:'100% 80px'}}/>
+
+      <div style={{position:'relative', maxWidth:1280, margin:'0 auto'}}>
+        <div style={{display:'grid', gridTemplateColumns:'1.15fr 0.85fr', gap:56, alignItems:'center'}}>
+          {/* LEFT */}
+          <div>
+            <motion.div initial={{opacity:0,y:18}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.8}}
+              style={{display:'inline-flex',alignItems:'center', gap:12, marginBottom:26}}>
+              <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'var(--gold-400)', fontWeight:500}}>§ 08</span>
+              <span style={{width:48, height:1, background:'var(--gold-400)', opacity:.6}}/>
+              <span style={{fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase', color:'rgba(246,239,227,0.65)'}}>Get Started</span>
+            </motion.div>
+            <motion.h2 className="serif"
+              initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, delay:.1, ease:[.22,.61,.36,1]}}
+              style={{margin:0, fontSize:62, lineHeight:1.04, letterSpacing:'-0.02em', color:'var(--cream-soft)', fontWeight:400, maxWidth:600, textWrap:'pretty'}}>
+              Take the next step toward <em style={{fontStyle:'italic', color:'var(--gold-400)'}}>smarter</em> everyday eating.
+            </motion.h2>
+            <motion.p
+              initial={{opacity:0,y:18}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, delay:.2}}
+              style={{margin:'24px 0 0', maxWidth:480, fontSize:17, lineHeight:1.55, color:'rgba(246,239,227,0.7)', textWrap:'pretty'}}>
+              Learn more about Balanced Platter Sugar Control Atta — or request a sample pack delivered to your door.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div initial={{opacity:0,y:18}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:.9, delay:.3}}
+              style={{display:'flex', gap:14, marginTop:40, alignItems:'center'}}>
+              <a href={SAMPLE_FORM_URL} target="_blank" rel="noopener" className="cta-press cta-group" aria-label="Request a sample pack (opens form)"
+                onMouseEnter={e=>e.currentTarget.style.transform='translateY(-2px)'}
+                onMouseLeave={e=>e.currentTarget.style.transform='translateY(0)'}
+                style={{display:'inline-flex', alignItems:'center', gap:14, padding:'16px 14px 16px 26px',
+                  background:'var(--gold-500)', color:'var(--forest-900)', borderRadius:999, fontSize:14, fontWeight:600, letterSpacing:'0.03em',
+                  boxShadow:'0 20px 44px -20px rgba(201,168,91,0.6)'}}>
+                Request Sample Pack
+                <span className="btn-arrow" style={{width:34, height:34, borderRadius:'50%', background:'var(--forest-900)', color:'var(--gold-400)', display:'grid', placeItems:'center', fontSize:16}}>→</span>
+              </a>
+              <a href="#story" className="cta-press cta-group"
+                onMouseEnter={e=>e.currentTarget.style.background='rgba(201,168,91,0.12)'}
+                onMouseLeave={e=>e.currentTarget.style.background='transparent'}
+                style={{display:'inline-flex', alignItems:'center', gap:10, padding:'15px 24px', color:'var(--cream-soft)', background:'transparent',
+                  borderRadius:999, fontSize:14, fontWeight:500, letterSpacing:'0.03em', border:'1px solid rgba(201,168,91,0.4)'}}>
+                Learn More <span className="btn-arrow" style={{fontSize:16}}>↑</span>
+              </a>
+            </motion.div>
+
+            {/* contact */}
+            <motion.div initial={{opacity:0}} animate={inView?{opacity:1}:{}} transition={{duration:.9, delay:.45}}
+              style={{display:'flex', gap:48, marginTop:56, paddingTop:28, borderTop:'1px solid rgba(201,168,91,0.2)'}}>
+              {[
+                ['WhatsApp','+91 70557 01655','https://wa.me/917055701655'],
+                ['Email','hello@balancedplatter.in','mailto:hello@balancedplatter.in'],
+                ['Website','balancedplatter.in', null]
+              ].map(([k,v,href])=>(
+                <div key={k} style={{display:'flex', flexDirection:'column', gap:6}}>
+                  <span style={{fontSize:10, letterSpacing:'0.22em', textTransform:'uppercase', color:'var(--gold-400)'}}>{k}</span>
+                  {href ? (
+                    <a href={href} target="_blank" rel="noopener"
+                      onMouseEnter={e=>e.currentTarget.style.color='var(--gold-400)'}
+                      onMouseLeave={e=>e.currentTarget.style.color='var(--cream-soft)'}
+                      style={{fontSize:15, color:'var(--cream-soft)', fontWeight:500, transition:'color .25s'}}>{v}</a>
+                  ) : (
+                    <span style={{fontSize:15, color:'var(--cream-soft)', fontWeight:500}}>{v}</span>
+                  )}
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* RIGHT — product pack */}
+          <div style={{position:'relative', height:560, display:'grid', placeItems:'center', perspective:1200}}>
+            <motion.div
+              initial={{opacity:0, scale:.85}}
+              animate={inView?{opacity: reduced ? 1 : [0.7,1,0.7], scale: reduced ? 1 : [1,1.06,1]}:{}}
+              transition={ reduced ? {duration:1.2} : {opacity:{duration:5, repeat:Infinity, ease:'easeInOut'}, scale:{duration:5, repeat:Infinity, ease:'easeInOut'}} }
+              style={{position:'absolute', width:460, height:460, borderRadius:'50%',
+                background:'radial-gradient(closest-side, rgba(201,168,91,0.32), transparent 70%)'}}/>
+            <motion.div initial={{opacity:0, scale:.85}} animate={inView?{opacity:1, scale:1}:{}} transition={{duration:1.3, delay:.1}}
+              style={{position:'absolute', bottom:70, width:360, height:100, borderRadius:'50%', border:'1px solid rgba(201,168,91,0.3)',
+                background:'radial-gradient(closest-side, rgba(201,168,91,0.12), transparent 70%)'}}/>
+            <motion.div style={{position:'relative', zIndex:2, y:packY}}>
+              <motion.img src="assets/product-pack.png" alt="Balanced Platter Sugar Control Atta — request a sample" loading="lazy"
+                initial={{opacity:0, y:50, scale:.92}} animate={inView?{opacity:1, y: reduced ? 0 : [0,-12,0], scale:1}:{}}
+                transition={{opacity:{duration:1.2, delay:.2}, scale:{duration:1.2, delay:.2, ease:[.22,.61,.36,1]}, y: reduced ? {duration:1.2, delay:.2} : {duration:6, repeat:Infinity, ease:'easeInOut', delay:1.2}}}
+                style={{display:'block', height:500, x:tiltX, rotateX:rotX, rotateY:rotY, transformPerspective:1200,
+                  filter:'drop-shadow(0 50px 60px rgba(0,0,0,0.55))'}}/>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* closing statement */}
+        <div style={{marginTop:120, paddingTop:60, borderTop:'1px solid rgba(201,168,91,0.18)', textAlign:'center'}}>
+          {closing.map((line,i)=>(
+            <motion.span key={i} className="serif"
+              initial={{opacity:0, y:20}} whileInView={{opacity:1, y:0}} viewport={{once:true, margin:'-10% 0px'}}
+              transition={{duration:1.1, delay:i*0.3, ease:[.22,.61,.36,1]}}
+              style={{display:'block', fontSize:40, lineHeight:1.18, letterSpacing:'-0.02em', fontWeight:400,
+                color: i===2 ? 'var(--gold-400)' : 'var(--cream-soft)', fontStyle: i===2?'italic':'normal'}}>
+              {line}
+            </motion.span>
+          ))}
+          <motion.div initial={{opacity:0}} whileInView={{opacity:1}} viewport={{once:true}} transition={{duration:1.2, delay:1}}
+            style={{display:'flex', alignItems:'center', justifyContent:'center', gap:14, marginTop:48}}>
+            <span style={{width:30, height:30, borderRadius:'50%', overflow:'hidden', background:'var(--forest-700)', boxShadow:'inset 0 0 0 1px rgba(201,168,91,0.5)'}}>
+              <img src="assets/logo.png" alt="" style={{width:'100%', height:'100%', objectFit:'cover', transform:'scale(1.05)'}}/>
+            </span>
+            <span style={{fontSize:12, letterSpacing:'0.28em', textTransform:'uppercase', color:'rgba(246,239,227,0.55)'}}>Balanced Platter · Est. 2026</span>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  PARTICLES — subtle drifting ingredient motes (reduced-motion safe)
+ * ---------------------------------------------------------------------- */
+function Particles({count=14}){
+  const reduced = useReducedMotion();
+  const motes = useMemo(()=> Array.from({length:count}, (_,i)=>({
+    left: Math.random()*100,
+    size: 3 + Math.random()*6,
+    dur: 14 + Math.random()*16,
+    delay: -Math.random()*20,
+    drift: (Math.random()*60 - 30).toFixed(0)+'px'
+  })),[count]);
+  if(reduced) return null;
+  return (
+    <div className="particles" aria-hidden="true">
+      {motes.map((m,i)=>(
+        <span key={i} className="particle" style={{
+          left:m.left+'%', width:m.size, height:m.size,
+          animationDuration:m.dur+'s', animationDelay:m.delay+'s', '--drift':m.drift
+        }}/>
+      ))}
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  CLOSING TRANSITION — final emotional beat before the CTA
+ * ---------------------------------------------------------------------- */
+function ClosingTransition(){
+  const ref = useRef(null);
+  const inView = useInView(ref, {once:true, margin:'-30% 0px'});
+  return (
+    <section ref={ref} data-screen-label="09.5 Closing Transition"
+      style={{position:'relative', minHeight:'100vh', display:'grid', placeItems:'center', overflow:'hidden',
+        background:'linear-gradient(180deg, #0E2019 0%, #11261E 50%, #15311F 100%)'}}>
+      <motion.div
+        initial={{opacity:0}} animate={inView?{opacity:1}:{}} transition={{duration:2.2}}
+        style={{position:'absolute', width:1100, height:1100, borderRadius:'50%',
+          background:'radial-gradient(closest-side, rgba(201,168,91,0.11), transparent 68%)'}}/>
+      <div style={{position:'relative', textAlign:'center', padding:'0 48px', maxWidth:1000}}>
+        <motion.div
+          initial={{opacity:0, scaleX:0}} animate={inView?{opacity:1, scaleX:1}:{}} transition={{duration:1.2, ease:[.22,.61,.36,1]}}
+          style={{width:56, height:1, background:'var(--gold-400)', margin:'0 auto 44px'}}/>
+        <h2 className="serif" style={{margin:0, fontSize:74, lineHeight:1.12, letterSpacing:'-0.02em', color:'var(--cream-soft)', fontWeight:400, textWrap:'pretty'}}>
+          <motion.span style={{display:'block'}}
+            initial={{opacity:0, y:28}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:1.4, ease:[.22,.61,.36,1]}}>
+            For 20 years, the search was personal.
+          </motion.span>
+          <motion.em style={{display:'block', fontStyle:'italic', color:'var(--gold-400)', marginTop:8}}
+            initial={{opacity:0, y:28}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:1.4, delay:.5, ease:[.22,.61,.36,1]}}>
+            Today, it can help others too.
+          </motion.em>
+        </h2>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------------------- *
+ *  ROOT
+ * ---------------------------------------------------------------------- */
+function App(){
+  // dismiss the loading overlay once fonts + first paint are ready
+  useEffect(()=>{
+    const pre = document.getElementById('preloader');
+    if(!pre) return;
+    let done = false;
+    const finish = () => { if(done) return; done = true; pre.classList.add('done'); setTimeout(()=>pre.remove(), 900); };
+    const ready = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    Promise.race([ ready, new Promise(r=>setTimeout(r, 2600)) ]).then(()=> setTimeout(finish, 700));
+    return ()=>{};
+  },[]);
+  return (
+    <>
+      <ScrollProgress/>
+      <Navbar/>
+      <main id="main">
+        <Hero/>
+        <Problem/>
+        <TheGap/>
+        <ProductReveal/>
+        <AudienceMarket/>
+        <Differentiators/>
+        <Evidence/>
+        <FounderStory/>
+        <FinalCTA/>
+      </main>
+      <StickyCTA/>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
